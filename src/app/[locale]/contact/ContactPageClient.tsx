@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Mail, MessageSquare, Github, Twitter, Send, CheckCircle, AlertCircle, Shield } from 'lucide-react';
+import { Mail, MessageSquare, Send, CheckCircle, AlertCircle, Shield } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
@@ -35,22 +35,6 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
       action: t('methods.email.action') || 'Email hello@pdfrunway.com',
       href: 'mailto:hello@pdfrunway.com',
       color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/20 border-blue-100 dark:border-blue-900/30'
-    },
-    {
-      icon: Github,
-      title: t('methods.github.title') || 'GitHub Issues',
-      description: t('methods.github.description') || 'Report bugs or request new features directly on our repository.',
-      action: t('methods.github.action') || 'Open an issue',
-      href: 'https://github.com/PDFRunway',
-      color: 'text-purple-600 bg-purple-50 dark:bg-purple-950/20 border-purple-100 dark:border-purple-900/30'
-    },
-    {
-      icon: Twitter,
-      title: t('methods.twitter.title') || 'Twitter / X',
-      description: t('methods.twitter.description') || 'Follow us for product updates, announcements, and quick help.',
-      action: t('methods.twitter.action') || 'Send a DM',
-      href: 'https://x.com/PDFRunway',
-      color: 'text-red-600 bg-red-50 dark:bg-red-950/20 border-red-100 dark:border-red-900/30'
     },
   ];
 
@@ -104,7 +88,7 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
         {/* Contact Methods */}
         <section className="py-20 bg-white dark:bg-gray-950 border-b border-gray-50 dark:border-gray-900">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="max-w-md mx-auto">
               {contactMethods.map((method, index) => {
                 const Icon = method.icon;
                 const colors = method.color.split(' ');
