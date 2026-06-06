@@ -61,6 +61,13 @@ export function getAlternateUrls(path: string = ''): Record<string, string> {
   const alternates: Record<string, string> = {};
   const basePath = getBasePath().replace(/\/$/, '');
 
+  // Blog pages only exist in the default English locale
+  if (cleanPath.startsWith('/blog')) {
+    alternates['en'] = `${siteConfig.url}${basePath}${cleanPath}`;
+    alternates['x-default'] = `${siteConfig.url}${basePath}${cleanPath}`;
+    return alternates;
+  }
+
   for (const locale of locales) {
     if (locale === 'en') {
       alternates[locale] = `${siteConfig.url}${basePath}${cleanPath}`;

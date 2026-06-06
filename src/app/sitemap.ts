@@ -9,6 +9,7 @@ import { MetadataRoute } from 'next';
 import { siteConfig } from '@/config/site';
 import { locales, type Locale } from '@/lib/i18n/config';
 import { getAllTools } from '@/config/tools';
+import { getAllPosts, getCategories, getTags } from '@/lib/blog';
 
 // Required for static export
 export const dynamic = 'force-static';
@@ -84,6 +85,56 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
 }
 
 /**
+ * Generate sitemap entries for the blog section
+ */
+function generateBlogEntries(lastModified: Date): MetadataRoute.Sitemap {
+  const entries: MetadataRoute.Sitemap = [];
+
+  // 1. Blog Home
+  entries.push({
+    url: `${siteConfig.url}/blog`,
+    lastModified,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  });
+
+  // 2. Blog posts
+  const posts = getAllPosts();
+  for (const post of posts) {
+    entries.push({
+      url: `${siteConfig.url}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    });
+  }
+
+  // 3. Blog categories
+  const categories = Object.keys(getCategories());
+  for (const category of categories) {
+    entries.push({
+      url: `${siteConfig.url}/blog/category/${category}`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    });
+  }
+
+  // 4. Blog tags
+  const tags = Object.keys(getTags());
+  for (const tag of tags) {
+    entries.push({
+      url: `${siteConfig.url}/blog/tag/${tag}`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    });
+  }
+
+  return entries;
+}
+
+/**
  * Generate the complete sitemap
  */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -95,6 +146,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const localeEntries = generateLocaleEntries(locale, lastModified);
     allEntries.push(...localeEntries);
   }
+
+  // Add blog entries
+  const blogEntries = generateBlogEntries(lastModified);
+  allEntries.push(...blogEntries);
   
   return allEntries;
 }
@@ -109,5 +164,13 @@ export function getSitemapUrlCount(): number {
   const toolPagesCount = tools.length;
   const localesCount = locales.length;
   
-  return (staticPagesCount + toolPagesCount) * localesCount;
+  // Include blog entries
+  const blogPostsCount = getAllPosts().length;
+  const blogCategoriesCount = Object.keys(getCategories()).length;
+  const blogTagsCount = Object.keys(getTags()).length;
+  const blogHomeCount = 1;
+
+  const blogTotal = blogHomeCount + blogPostsCount + blogCategoriesCount + blogTagsCount;
+  
+  return (staticPagesCount + toolPagesCount) * localesCount + blogTotal;
 }
