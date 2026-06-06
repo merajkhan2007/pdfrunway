@@ -10,7 +10,7 @@ import { getToolById } from '@/config/tools';
 import '@/app/globals.css';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ localeOrTool: locale }));
+  return locales.filter((locale) => locale !== 'en').map((locale) => ({ locale }));
 }
 
 /**
@@ -30,19 +30,19 @@ export const viewport: Viewport = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ localeOrTool: string }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { localeOrTool } = await params;
+  const { locale } = await params;
   
   // Resolve locale
-  const isLocale = locales.includes(localeOrTool as Locale);
-  const locale = isLocale ? (localeOrTool as Locale) : 'en';
+  const isLocale = locales.includes(locale as Locale);
+  const resolvedLocale = isLocale ? (locale as Locale) : 'en';
 
   // Get localized SEO translations
-  const t = await getTranslations({ locale, namespace: 'metadata' });
+  const t = await getTranslations({ locale: resolvedLocale, namespace: 'metadata' });
 
   // Generate metadata using the SEO module with translations
-  return generateHomeMetadata(locale, {
+  return generateHomeMetadata(resolvedLocale, {
     title: t('home.title'),
     description: t('home.description'),
   });
@@ -53,32 +53,32 @@ export default async function LocaleLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ localeOrTool: string }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { localeOrTool } = await params;
+  const { locale } = await params;
 
   // Resolve locale
-  const isLocale = locales.includes(localeOrTool as Locale);
+  const isLocale = locales.includes(locale as Locale);
   
   // If it's not a valid locale, verify it is a valid tool slug
-  if (!isLocale && !getToolById(localeOrTool)) {
+  if (!isLocale && !getToolById(locale)) {
     notFound();
   }
 
-  const locale = isLocale ? (localeOrTool as Locale) : 'en';
+  const resolvedLocale = isLocale ? (locale as Locale) : 'en';
 
   // Enable static rendering
-  setRequestLocale(locale);
+  setRequestLocale(resolvedLocale);
 
   // Get messages for the locale
   const messages = await getMessages();
 
   // Get direction for the locale
-  const direction = localeConfig[locale]?.direction || 'ltr';
+  const direction = localeConfig[resolvedLocale]?.direction || 'ltr';
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div lang={locale} dir={direction} className={`${fontVariables} min-h-screen bg-background text-foreground antialiased font-sans`}>
+      <div lang={resolvedLocale} dir={direction} className={`${fontVariables} min-h-screen bg-background text-foreground antialiased font-sans`}>
         <SkipLink targetId="main-content">Skip to main content</SkipLink>
         {children}
       </div>

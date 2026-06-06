@@ -42,11 +42,8 @@ export interface ToolMetadataOptions extends BaseMetadataOptions {
  * Generate the canonical URL for a page
  */
 export function getCanonicalUrl(locale: Locale, path: string = ''): string {
-  // Normalize the page path: remove /tools/ prefix for tools if needed
+  // Normalize the page path
   let cleanPath = path.startsWith('/') ? path : `/${path}`;
-  if (cleanPath.startsWith('/tools/') && !cleanPath.startsWith('/tools/category/')) {
-    cleanPath = cleanPath.replace(/^\/tools/, '');
-  }
 
   const basePath = getBasePath().replace(/\/$/, '');
   if (locale === 'en') {
@@ -60,9 +57,6 @@ export function getCanonicalUrl(locale: Locale, path: string = ''): string {
  */
 export function getAlternateUrls(path: string = ''): Record<string, string> {
   let cleanPath = path.startsWith('/') ? path : `/${path}`;
-  if (cleanPath.startsWith('/tools/') && !cleanPath.startsWith('/tools/category/')) {
-    cleanPath = cleanPath.replace(/^\/tools/, '');
-  }
 
   const alternates: Record<string, string> = {};
   const basePath = getBasePath().replace(/\/$/, '');
@@ -163,7 +157,7 @@ export function generateBaseMetadata(options: PageMetadataOptions): Metadata {
  */
 export function generateToolMetadata(options: ToolMetadataOptions): Metadata {
   const { locale, tool, content } = options;
-  const path = `/${tool.slug}`;
+  const path = `/tools/${tool.slug}`;
 
   // Enhance keywords with common PDF-related terms
   const enhancedKeywords = [

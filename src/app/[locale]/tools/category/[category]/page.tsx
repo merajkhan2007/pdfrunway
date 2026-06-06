@@ -5,12 +5,14 @@ import CategoryPageClient from './CategoryPageClient';
 import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
-    return locales.flatMap((locale) =>
-        TOOL_CATEGORIES.map((category) => ({
-            locale,
-            category,
-        }))
-    );
+    return locales
+        .filter((locale) => locale !== 'en')
+        .flatMap((locale) =>
+            TOOL_CATEGORIES.map((category) => ({
+                locale,
+                category,
+            }))
+        );
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string }> }) {

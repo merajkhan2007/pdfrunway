@@ -5,18 +5,18 @@ import { generateAboutMetadata } from '@/lib/seo';
 import AboutPageClient from './AboutPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ localeOrTool: locale }));
+  return locales.filter((locale) => locale !== 'en').map((locale) => ({ locale }));
 }
 
 interface AboutPageProps {
-  params: Promise<{ localeOrTool: string }>;
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: AboutPageProps): Promise<Metadata> {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generateAboutMetadata(validLocale, {
@@ -26,8 +26,8 @@ export async function generateMetadata({
 }
 
 export default async function AboutPage({ params }: AboutPageProps) {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
 
   // Enable static rendering
   setRequestLocale(validLocale);

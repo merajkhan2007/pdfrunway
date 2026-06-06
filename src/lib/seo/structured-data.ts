@@ -164,7 +164,7 @@ export function generateSoftwareApplicationSchema(
     '@type': 'SoftwareApplication',
     name: content.title,
     description: content.metaDescription,
-    url: locale === 'en' ? `${siteConfig.url}/${tool.slug}` : `${siteConfig.url}/${locale}/${tool.slug}`,
+    url: locale === 'en' ? `${siteConfig.url}/tools/${tool.slug}` : `${siteConfig.url}/${locale}/tools/${tool.slug}`,
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Windows, macOS, Linux, iOS, Android, Chrome OS',
     offers: {
@@ -218,8 +218,8 @@ export function generateHowToSchema(
       name: step.title,
       text: step.description,
       url: locale === 'en'
-        ? `${siteConfig.url}/${tool.slug}#step-${step.step}`
-        : `${siteConfig.url}/${locale}/${tool.slug}#step-${step.step}`,
+        ? `${siteConfig.url}/tools/${tool.slug}#step-${step.step}`
+        : `${siteConfig.url}/${locale}/tools/${tool.slug}#step-${step.step}`,
     })),
   };
 }
@@ -254,7 +254,7 @@ export function generateWebPageSchema(
     '@type': 'WebPage',
     name: content.title,
     description: content.metaDescription,
-    url: locale === 'en' ? `${siteConfig.url}/${tool.slug}` : `${siteConfig.url}/${locale}/${tool.slug}`,
+    url: locale === 'en' ? `${siteConfig.url}/tools/${tool.slug}` : `${siteConfig.url}/${locale}/tools/${tool.slug}`,
     inLanguage: languageMap[locale] || 'en-US',
     isPartOf: {
       '@type': 'WebSite',
@@ -338,10 +338,7 @@ export function generateBreadcrumbSchema(
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: items.map((item, index) => {
-      let itemPath = item.path;
-      if (itemPath.startsWith('/tools/') && !itemPath.startsWith('/tools/category/')) {
-        itemPath = itemPath.replace(/^\/tools/, '');
-      }
+      const itemPath = item.path;
       const url = locale === 'en'
         ? `${siteConfig.url}${itemPath}`
         : `${siteConfig.url}/${locale}${itemPath}`;
@@ -382,7 +379,7 @@ export function generateToolPageStructuredData(
     [
       { name: 'Home', path: '' },
       { name: 'Tools', path: '/tools' },
-      { name: content.title, path: `/${tool.slug}` },
+      { name: content.title, path: `/tools/${tool.slug}` },
     ],
     locale
   );

@@ -5,18 +5,18 @@ import { generateCookieMetadata } from '@/lib/seo';
 import CookiePolicyPageClient from './CookiePolicyPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ localeOrTool: locale }));
+  return locales.filter((locale) => locale !== 'en').map((locale) => ({ locale }));
 }
 
 interface CookiePageProps {
-  params: Promise<{ localeOrTool: string }>;
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: CookiePageProps): Promise<Metadata> {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generateCookieMetadata(validLocale, {
@@ -26,8 +26,8 @@ export async function generateMetadata({
 }
 
 export default async function CookiePage({ params }: CookiePageProps) {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
 
   // Enable static rendering
   setRequestLocale(validLocale);

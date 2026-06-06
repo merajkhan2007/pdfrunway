@@ -64,17 +64,6 @@ export function getLocalizedPath(path: string, locale: Locale): string {
   cleanPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
   cleanPath = cleanPath.replace(/\/+/g, '/');
 
-  // Remove "/tools/" segment for individual tools, but keep it for listing / category pages
-  // e.g. "/tools/merge-pdf" -> "/merge-pdf"
-  if (cleanPath.startsWith('/tools/') && !cleanPath.startsWith('/tools/category/')) {
-    const toolSlug = cleanPath.replace(/^\/tools\//, '');
-    cleanPath = `/${toolSlug}`;
-  }
-
-  // Normalize path again
-  cleanPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
-  cleanPath = cleanPath.replace(/\/+/g, '/');
-
   // For English, return without locale prefix
   if (locale === 'en') {
     return cleanPath;

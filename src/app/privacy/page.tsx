@@ -1,19 +1,17 @@
-import PrivacyPage, { generateMetadata as localeGenerateMetadata } from '@/app/[localeOrTool]/privacy/page';
+import PrivacyPage, { generateMetadata as localeGenerateMetadata } from '@/app/[locale]/privacy/page';
 import type { Metadata } from 'next';
 import { RootWrapper } from '@/components/layout';
 
 export async function generateMetadata(): Promise<Metadata> {
   return localeGenerateMetadata({
-    params: Promise.resolve({ localeOrTool: 'en' }),
+    params: Promise.resolve({ locale: 'en' }),
   });
 }
 
 export default async function RootPrivacyPage() {
   return (
     <RootWrapper>
-      <PrivacyPage params={Promise.resolve({ localeOrTool: 'en' })} />
+      <PrivacyPage params={Promise.resolve({ locale: 'en' })} />
     </RootWrapper>
   );
 }
-
-

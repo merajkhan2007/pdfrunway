@@ -1,4 +1,4 @@
-import HomePage from './[localeOrTool]/page';
+import HomePage from './[locale]/page';
 import LanguageRedirect from './LanguageRedirect';
 import { RootWrapper } from '@/components/layout';
 
@@ -8,9 +8,7 @@ export default async function RootPage() {
   return (
     <RootWrapper>
       <LanguageRedirect />
-      <HomePage params={Promise.resolve({ localeOrTool: 'en' })} />
+      <HomePage params={Promise.resolve({ locale: 'en' })} />
     </RootWrapper>
   );
 }
-
-

@@ -69,8 +69,8 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
   const tools = getAllTools();
   for (const tool of tools) {
     const url = locale === 'en'
-      ? `${siteConfig.url}/${tool.slug}`
-      : `${siteConfig.url}/${locale}/${tool.slug}`;
+      ? `${siteConfig.url}/tools/${tool.slug}`
+      : `${siteConfig.url}/${locale}/tools/${tool.slug}`;
 
     entries.push({
       url,

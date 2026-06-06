@@ -5,18 +5,18 @@ import { generatePrivacyMetadata } from '@/lib/seo';
 import PrivacyPageClient from './PrivacyPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ localeOrTool: locale }));
+  return locales.filter((locale) => locale !== 'en').map((locale) => ({ locale }));
 }
 
 interface PrivacyPageProps {
-  params: Promise<{ localeOrTool: string }>;
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: PrivacyPageProps): Promise<Metadata> {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generatePrivacyMetadata(validLocale, {
@@ -26,8 +26,8 @@ export async function generateMetadata({
 }
 
 export default async function PrivacyPage({ params }: PrivacyPageProps) {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
 
   // Enable static rendering
   setRequestLocale(validLocale);

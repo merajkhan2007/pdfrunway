@@ -139,7 +139,7 @@ import type { Metadata } from 'next';
 
 interface ToolPageParams {
   params: Promise<{
-    localeOrTool: string;
+    locale: string;
     tool: string;
   }>;
 }
@@ -150,20 +150,22 @@ interface ToolPageParams {
 export async function generateStaticParams() {
   const tools = getAllTools();
 
-  return SUPPORTED_LOCALES.flatMap(locale =>
-    tools.map(tool => ({
-      localeOrTool: locale,
-      tool: tool.slug,
-    }))
-  );
+  return SUPPORTED_LOCALES
+    .filter(locale => locale !== 'en')
+    .flatMap(locale =>
+      tools.map(tool => ({
+        locale: locale,
+        tool: tool.slug,
+      }))
+    );
 }
 
 /**
  * Generate metadata for tool pages
  */
 export async function generateMetadata({ params }: ToolPageParams): Promise<Metadata> {
-  const { localeOrTool: localeParam, tool: toolSlug } = await params;
-  const locale = localeParam as Locale;
+  const { locale: localeStr, tool: toolSlug } = await params;
+  const locale = localeStr as Locale;
   const tool = getToolById(toolSlug);
   const t = await getTranslations({ locale, namespace: 'errors' });
 
@@ -194,8 +196,8 @@ export async function generateMetadata({ params }: ToolPageParams): Promise<Meta
  * Renders the appropriate tool interface based on the tool slug
  */
 export default async function ToolPageRoute({ params }: ToolPageParams) {
-  const { localeOrTool: localeParam, tool: toolSlug } = await params;
-  const locale = localeParam as Locale;
+  const { locale: localeStr, tool: toolSlug } = await params;
+  const locale = localeStr as Locale;
 
   // Enable static rendering for this locale - MUST be called before getTranslations
   setRequestLocale(locale);

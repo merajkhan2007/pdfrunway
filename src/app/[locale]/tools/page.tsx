@@ -6,18 +6,18 @@ import { generateToolsListMetadata } from '@/lib/seo';
 import ToolsPageClient from './ToolsPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ localeOrTool: locale }));
+  return locales.filter((locale) => locale !== 'en').map((locale) => ({ locale }));
 }
 
 interface ToolsPageProps {
-  params: Promise<{ localeOrTool: string }>;
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: ToolsPageProps): Promise<Metadata> {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generateToolsListMetadata(validLocale, {
@@ -37,8 +37,8 @@ function ToolsPageFallback() {
 }
 
 export default async function ToolsPage({ params }: ToolsPageProps) {
-  const { localeOrTool } = await params;
-  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
+  const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
 
   // Enable static rendering
   setRequestLocale(validLocale);
