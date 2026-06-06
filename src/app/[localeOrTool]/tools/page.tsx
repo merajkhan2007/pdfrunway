@@ -6,26 +6,24 @@ import { generateToolsListMetadata } from '@/lib/seo';
 import ToolsPageClient from './ToolsPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ localeOrTool: locale }));
+}
+
+interface ToolsPageProps {
+  params: Promise<{ localeOrTool: string }>;
 }
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
+}: ToolsPageProps): Promise<Metadata> {
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generateToolsListMetadata(validLocale, {
     title: t('tools.title'),
     description: t('tools.description'),
   });
-}
-
-interface ToolsPageProps {
-  params: Promise<{ locale: string }>;
 }
 
 function ToolsPageFallback() {
@@ -39,17 +37,18 @@ function ToolsPageFallback() {
 }
 
 export default async function ToolsPage({ params }: ToolsPageProps) {
-  const { locale } = await params;
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
 
   // Enable static rendering
-  setRequestLocale(locale);
+  setRequestLocale(validLocale);
 
   // Get localized content for tools
   const { tools } = await import('@/config/tools');
   const { getToolContent } = await import('@/config/tool-content');
 
   const localizedToolContent = tools.reduce((acc, tool) => {
-    const content = getToolContent(locale as Locale, tool.id);
+    const content = getToolContent(validLocale, tool.id);
     if (content) {
       acc[tool.id] = {
         title: content.title,
@@ -63,7 +62,7 @@ export default async function ToolsPage({ params }: ToolsPageProps) {
   // because static export doesn't support server-side searchParams
   return (
     <Suspense fallback={<ToolsPageFallback />}>
-      <ToolsPageClient locale={locale as Locale} localizedToolContent={localizedToolContent} />
+      <ToolsPageClient locale={validLocale} localizedToolContent={localizedToolContent} />
     </Suspense>
   );
 }

@@ -12,7 +12,7 @@ import {
 vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => {
     const translations: Record<string, string> = {
-      'brand': 'PDFCraft',
+      'brand': 'PDFRunway',
       'tagline': 'Professional PDF Tools - Free & Private',
       'navigation.home': 'Home',
       'navigation.tools': 'Tools',
@@ -69,10 +69,9 @@ describe('Layout Property Tests', () => {
           (locale) => {
             const { unmount } = render(<Header locale={locale} />);
             
-            // Find the brand name in the header
-            const brandElement = screen.getByTestId('brand-name');
-            expect(brandElement).toBeInTheDocument();
-            expect(brandElement.textContent).toBe('PDFCraft');
+            // Find the brand logo in the header
+            const brandImage = screen.getByAltText('PDFRunway');
+            expect(brandImage).toBeInTheDocument();
             
             unmount();
             return true;
@@ -89,10 +88,9 @@ describe('Layout Property Tests', () => {
           (locale) => {
             const { unmount } = render(<Footer locale={locale} />);
             
-            // Find the brand name in the footer
-            const brandElement = screen.getByTestId('footer-brand-name');
-            expect(brandElement).toBeInTheDocument();
-            expect(brandElement.textContent).toBe('PDFCraft');
+            // Find the brand logo in the footer
+            const brandImages = screen.getAllByAltText('PDFRunway');
+            expect(brandImages.length).toBeGreaterThan(0);
             
             unmount();
             return true;
@@ -109,19 +107,21 @@ describe('Layout Property Tests', () => {
           (locale) => {
             // Render Header
             const { unmount: unmountHeader } = render(<Header locale={locale} />);
-            const headerBrand = screen.getByTestId('brand-name');
-            const headerBrandText = headerBrand.textContent;
+            const headerBrandImage = screen.getByAltText('PDFRunway');
+            expect(headerBrandImage).toBeInTheDocument();
+            const headerAltText = headerBrandImage.getAttribute('alt');
             unmountHeader();
             
             // Render Footer
             const { unmount: unmountFooter } = render(<Footer locale={locale} />);
-            const footerBrand = screen.getByTestId('footer-brand-name');
-            const footerBrandText = footerBrand.textContent;
+            const footerBrandImages = screen.getAllByAltText('PDFRunway');
+            expect(footerBrandImages.length).toBeGreaterThan(0);
+            const footerAltText = footerBrandImages[0].getAttribute('alt');
             unmountFooter();
             
             // Brand should be consistent
-            expect(headerBrandText).toBe(footerBrandText);
-            expect(headerBrandText).toBe('PDFCraft');
+            expect(headerAltText).toBe(footerAltText);
+            expect(headerAltText).toBe('PDFRunway');
             
             return true;
           }

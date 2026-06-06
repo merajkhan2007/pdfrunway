@@ -5,16 +5,18 @@ import { generateContactMetadata } from '@/lib/seo';
 import ContactPageClient from './ContactPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ localeOrTool: locale }));
+}
+
+interface ContactPageProps {
+  params: Promise<{ localeOrTool: string }>;
 }
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
+}: ContactPageProps): Promise<Metadata> {
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generateContactMetadata(validLocale, {
@@ -23,15 +25,12 @@ export async function generateMetadata({
   });
 }
 
-interface ContactPageProps {
-  params: Promise<{ locale: string }>;
-}
-
 export default async function ContactPage({ params }: ContactPageProps) {
-  const { locale } = await params;
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
 
   // Enable static rendering
-  setRequestLocale(locale);
+  setRequestLocale(validLocale);
 
-  return <ContactPageClient locale={locale as Locale} />;
+  return <ContactPageClient locale={validLocale} />;
 }

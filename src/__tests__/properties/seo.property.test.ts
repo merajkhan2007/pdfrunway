@@ -139,7 +139,7 @@ describe('SEO Property Tests', () => {
       fc.assert(
         fc.property(
           fc.constantFrom(...locales),
-          fc.constantFrom('/tools/merge-pdf', '/about', '/faq', ''),
+          fc.constantFrom('/merge-pdf', '/about', '/faq', ''),
           (locale, path) => {
             const metadata = generateBaseMetadata({
               locale,
@@ -150,7 +150,11 @@ describe('SEO Property Tests', () => {
             
             // Check canonical URL
             expect(metadata.alternates?.canonical).toBeTruthy();
-            expect(metadata.alternates?.canonical).toContain(locale);
+            if (locale !== 'en') {
+              expect(metadata.alternates?.canonical).toContain(locale);
+            } else {
+              expect(metadata.alternates?.canonical).not.toContain('/en');
+            }
             
             // Check alternate language URLs
             expect(metadata.alternates?.languages).toBeDefined();
@@ -159,7 +163,11 @@ describe('SEO Property Tests', () => {
             // All locales should be present
             for (const loc of locales) {
               expect(languages[loc]).toBeTruthy();
-              expect(languages[loc]).toContain(loc);
+              if (loc !== 'en') {
+                expect(languages[loc]).toContain(loc);
+              } else {
+                expect(languages[loc]).not.toContain('/en');
+              }
             }
             
             // x-default should be present
@@ -221,7 +229,11 @@ describe('SEO Property Tests', () => {
             expect(schema.name).toBeTruthy();
             expect(schema.description).toBeTruthy();
             expect(schema.url).toContain(tool.slug);
-            expect(schema.url).toContain(locale);
+            if (locale !== 'en') {
+              expect(schema.url).toContain(locale);
+            } else {
+              expect(schema.url).not.toContain('/en/');
+            }
             expect(schema.applicationCategory).toBe('UtilitiesApplication');
             expect(schema.operatingSystem).toBe('Windows, macOS, Linux, iOS, Android, Chrome OS');
             expect(schema.offers).toBeDefined();
@@ -318,11 +330,15 @@ describe('SEO Property Tests', () => {
             const content = createMockToolContent(tool);
             const schema = generateSoftwareApplicationSchema(tool, content, locale);
             
-            // URL should contain the locale
-            expect(schema.url).toContain(`/${locale}/`);
+            // URL should contain the locale (if not English)
+            if (locale !== 'en') {
+              expect(schema.url).toContain(`/${locale}/`);
+            } else {
+              expect(schema.url).not.toContain('/en/');
+            }
             
             // URL should contain the tool slug
-            expect(schema.url).toContain(`/tools/${tool.slug}`);
+            expect(schema.url).toContain(`/${tool.slug}`);
             
             // URL should be a valid URL format
             expect(schema.url).toMatch(/^https?:\/\//);
@@ -343,11 +359,15 @@ describe('SEO Property Tests', () => {
       fc.assert(
         fc.property(
           fc.constantFrom(...locales),
-          fc.constantFrom('/tools/merge-pdf', '/about', '/faq', ''),
+          fc.constantFrom('/merge-pdf', '/about', '/faq', ''),
           (locale, path) => {
             const url = getCanonicalUrl(locale, path);
             
-            expect(url).toContain(locale);
+            if (locale !== 'en') {
+              expect(url).toContain(locale);
+            } else {
+              expect(url).not.toContain('/en');
+            }
             expect(url).toMatch(/^https?:\/\//);
             
             if (path) {
@@ -362,19 +382,24 @@ describe('SEO Property Tests', () => {
     });
 
     it('getAlternateUrls includes all locales', () => {
-      const path = '/tools/merge-pdf';
+      const path = '/merge-pdf';
       const alternates = getAlternateUrls(path);
       
       // All locales should be present
       for (const locale of locales) {
         expect(alternates[locale]).toBeTruthy();
-        expect(alternates[locale]).toContain(locale);
+        if (locale !== 'en') {
+          expect(alternates[locale]).toContain(locale);
+        } else {
+          expect(alternates[locale]).not.toContain('/en');
+        }
         expect(alternates[locale]).toContain(path);
       }
       
       // x-default should be present
       expect(alternates['x-default']).toBeTruthy();
-      expect(alternates['x-default']).toContain('en');
+      expect(alternates['x-default']).toBe(alternates['en']);
+
     });
   });
 });

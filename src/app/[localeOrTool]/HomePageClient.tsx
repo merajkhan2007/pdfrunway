@@ -14,7 +14,7 @@ import {
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { getAllTools, getToolsByCategory, getPopularTools } from '@/config/tools';
-import { type Locale } from '@/lib/i18n/config';
+import { type Locale, getLocalizedPath } from '@/lib/i18n/config';
 import { type ToolCategory } from '@/types/tool';
 
 interface HomePageClientProps {
@@ -283,7 +283,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
     '@context': 'https://schema.org',
     '@type': 'Organization',
     'name': 'PDFRunway',
-    'url': `https://pdfrunway.com/${locale}`,
+    'url': locale === 'en' ? 'https://pdfrunway.com' : `https://pdfrunway.com/${locale}`,
     'logo': 'https://pdfrunway.com/images/pdfrunway.png',
     'description': 'Free, secure, browser-based PDF tools that run 100% client-side.',
     'sameAs': [
@@ -296,10 +296,10 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     'name': 'PDFRunway',
-    'url': `https://pdfrunway.com/${locale}`,
+    'url': locale === 'en' ? 'https://pdfrunway.com' : `https://pdfrunway.com/${locale}`,
     'potentialAction': {
       '@type': 'SearchAction',
-      'target': `https://pdfrunway.com/${locale}/tools?search={search_term_string}`,
+      'target': locale === 'en' ? 'https://pdfrunway.com/tools?search={search_term_string}' : `https://pdfrunway.com/${locale}/tools?search={search_term_string}`,
       'query-input': 'required name=search_term_string'
     }
   };
@@ -312,7 +312,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
         '@type': 'ListItem',
         'position': 1,
         'name': 'Home',
-        'item': `https://pdfrunway.com/${locale}`
+        'item': locale === 'en' ? 'https://pdfrunway.com' : `https://pdfrunway.com/${locale}`
       }
     ]
   };
@@ -485,7 +485,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                             const name = loc?.title || tool.id.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
                             const colors = categoryColors[tool.category];
                             return (
-                              <Link key={tool.id} href={`/${locale}/tools/${tool.slug}`}
+                              <Link key={tool.id} href={getLocalizedPath(`/tools/${tool.slug}`, locale)}
                                 onClick={() => {
                                   setShowSearch(false);
                                   saveSearchQuery(name);
@@ -570,7 +570,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
               <div className="flex flex-wrap justify-center items-center gap-2.5 mb-12">
                 <span className="text-white/40 text-xs font-semibold uppercase tracking-wider mr-1 select-none">Popular:</span>
                 {heroChips.map(chip => (
-                  <Link key={chip.id} href={`/${locale}/tools/${chip.id}`}
+                  <Link key={chip.id} href={getLocalizedPath(`/tools/${chip.id}`, locale)}
                     onClick={() => trackToolClick(chip.id)}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 dark:bg-gray-900/60 hover:bg-white/20 border border-white/15 hover:border-white/30 text-white/90 hover:text-white text-xs font-semibold transition-all shadow-sm">
                     <chip.icon className="h-3.5 w-3.5" />
@@ -581,7 +581,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
 
               {/* Call-to-Actions (CTAs) */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-14">
-                <Link href={`/${locale}/tools`}>
+                <Link href={getLocalizedPath('/tools', locale)}>
                   <button className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-[#E31E24] text-white font-bold text-sm hover:bg-red-700 transition-all shadow-xl shadow-red-900/50 hover:-translate-y-0.5 cursor-pointer">
                     Explore All Tools <ArrowRight className="h-4.5 w-4.5" />
                   </button>
@@ -667,7 +667,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     const name = loc?.title || tool.id.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
                     const colors = categoryColors[tool.category];
                     return (
-                      <Link key={tool.id} href={`/${locale}/tools/${tool.slug}`}
+                      <Link key={tool.id} href={getLocalizedPath(`/tools/${tool.slug}`, locale)}
                         onClick={() => trackToolClick(tool.id)}
                         className="group flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-150 dark:border-gray-700 hover:border-[#E31E24]/30 hover:shadow-md transition-all duration-200"
                       >
@@ -706,7 +706,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                 </h2>
                 <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm sm:text-base">Quick access to the utility features our users reach for every day</p>
               </div>
-              <Link href={`/${locale}/tools`} className="inline-flex items-center gap-1.5 text-sm font-bold text-[#E31E24] hover:underline shrink-0 group">
+              <Link href={getLocalizedPath('/tools', locale)} className="inline-flex items-center gap-1.5 text-sm font-bold text-[#E31E24] hover:underline shrink-0 group">
                 View all {allTools.length}+ tools <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -720,7 +720,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                 const colors = categoryColors[tool.category];
                 
                 return (
-                  <Link key={tool.id} href={`/${locale}/tools/${tool.slug}`}
+                  <Link key={tool.id} href={getLocalizedPath(`/tools/${tool.slug}`, locale)}
                     onClick={() => trackToolClick(tool.id)}
                     className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700/80 p-6 flex flex-col hover:border-[#E31E24]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
                   >
@@ -828,7 +828,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                   </div>
 
                   {/* CTA Button */}
-                  <Link href={`/${locale}/tools/${selectedRecTool.slug}`} className="shrink-0 w-full md:w-auto">
+                  <Link href={getLocalizedPath(`/tools/${selectedRecTool.slug}`, locale)} className="shrink-0 w-full md:w-auto">
                     <button
                       onClick={() => trackToolClick(selectedRecTool.id)}
                       className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#E31E24] text-white font-bold text-sm hover:bg-red-700 transition-colors shadow-lg cursor-pointer"
@@ -869,7 +869,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                 const desc = t(`home.categoriesDescription.${categoryKeys[category]}`);
                 
                 return (
-                  <Link key={category} href={`/${locale}/tools?category=${category}`} className="group">
+                  <Link key={category} href={getLocalizedPath(`/tools?category=${category}`, locale)} className="group">
                     <div className="bg-white dark:bg-gray-850 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 hover:border-[#E31E24]/30 hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between">
                       <div className="flex items-start gap-4">
                         {/* Styled Icon */}
@@ -1083,7 +1083,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                 </h2>
                 <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm sm:text-base">Step-by-step instructions and reviews from our document processing experts</p>
               </div>
-              <Link href={`/${locale}/tools`} className="inline-flex items-center gap-1.5 text-sm font-bold text-[#E31E24] hover:underline shrink-0 group">
+              <Link href={getLocalizedPath('/tools', locale)} className="inline-flex items-center gap-1.5 text-sm font-bold text-[#E31E24] hover:underline shrink-0 group">
                 All guides <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -1091,7 +1091,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
             {/* Blogs list */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {blogPosts.map(post => (
-                <Link key={post.slug} href={`/${locale}/tools/${post.slug}`}
+                <Link key={post.slug} href={getLocalizedPath(`/tools/${post.slug}`, locale)}
                   onClick={() => trackToolClick(post.slug)}
                   className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-150 dark:border-gray-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >
@@ -1141,12 +1141,12 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
               Start using PDFRunway&apos;s {allTools.length}+ free PDF tools right now. No sign-up required. No server uploads. 100% private.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href={`/${locale}/tools`}>
+              <Link href={getLocalizedPath('/tools', locale)}>
                 <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-[#E31E24] text-white font-bold hover:bg-red-700 transition-all shadow-xl shadow-red-950/20 hover:-translate-y-0.5 cursor-pointer">
                   Start Using Free Tools <ArrowRight className="h-4.5 w-4.5" />
                 </button>
               </Link>
-              <Link href={`/${locale}/tools?category=organize-manage`}>
+              <Link href={getLocalizedPath('/tools?category=organize-manage', locale)}>
                 <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border-2 border-[#1B2A4A] dark:border-gray-600 text-[#1B2A4A] dark:text-gray-300 font-bold hover:bg-[#1B2A4A] hover:text-white dark:hover:bg-gray-700 transition-all hover:-translate-y-0.5 cursor-pointer">
                   Browse Categories
                 </button>
@@ -1176,7 +1176,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
           </button>
 
           {/* Floating Action Button: Suggest Merge PDF (Top Tool) */}
-          <Link href={`/${locale}/tools/merge-pdf`} onClick={() => trackToolClick('merge-pdf')}>
+          <Link href={getLocalizedPath('/tools/merge-pdf', locale)} onClick={() => trackToolClick('merge-pdf')}>
             <button className="flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-[#E31E24] text-white hover:bg-red-700 font-bold text-xs shadow-xl cursor-pointer hover:shadow-2xl transition-all hover:-translate-y-0.5">
               <Sparkles className="h-4 w-4 fill-white animate-pulse" />
               <span>Use Most Popular Tool (Merge)</span>

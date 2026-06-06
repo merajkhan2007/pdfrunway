@@ -5,16 +5,18 @@ import { generatePrivacyMetadata } from '@/lib/seo';
 import PrivacyPageClient from './PrivacyPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ localeOrTool: locale }));
+}
+
+interface PrivacyPageProps {
+  params: Promise<{ localeOrTool: string }>;
 }
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
+}: PrivacyPageProps): Promise<Metadata> {
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generatePrivacyMetadata(validLocale, {
@@ -23,15 +25,12 @@ export async function generateMetadata({
   });
 }
 
-interface PrivacyPageProps {
-  params: Promise<{ locale: string }>;
-}
-
 export default async function PrivacyPage({ params }: PrivacyPageProps) {
-  const { locale } = await params;
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
 
   // Enable static rendering
-  setRequestLocale(locale);
+  setRequestLocale(validLocale);
 
-  return <PrivacyPageClient locale={locale as Locale} />;
+  return <PrivacyPageClient locale={validLocale} />;
 }

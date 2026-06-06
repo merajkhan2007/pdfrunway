@@ -5,16 +5,18 @@ import { generateFaqMetadata } from '@/lib/seo';
 import FAQPageClient from './FAQPageClient';
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ localeOrTool: locale }));
+}
+
+interface FAQPageProps {
+  params: Promise<{ localeOrTool: string }>;
 }
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
+}: FAQPageProps): Promise<Metadata> {
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
   const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
 
   return generateFaqMetadata(validLocale, {
@@ -23,15 +25,12 @@ export async function generateMetadata({
   });
 }
 
-interface FAQPageProps {
-  params: Promise<{ locale: string }>;
-}
-
 export default async function FAQPage({ params }: FAQPageProps) {
-  const { locale } = await params;
+  const { localeOrTool } = await params;
+  const validLocale = locales.includes(localeOrTool as Locale) ? (localeOrTool as Locale) : 'en';
 
   // Enable static rendering
-  setRequestLocale(locale);
+  setRequestLocale(validLocale);
 
-  return <FAQPageClient locale={locale as Locale} />;
+  return <FAQPageClient locale={validLocale} />;
 }

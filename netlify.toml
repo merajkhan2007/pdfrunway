@@ -8,6 +8,19 @@
   NODE_VERSION = "22"
   NPM_VERSION = "10"
 
+# English redirects to root
+[[redirects]]
+  from = "/en"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat"
+  status = 301
+  force = true
+
 # SPA-style routing
 [[redirects]]
   from = "/*"

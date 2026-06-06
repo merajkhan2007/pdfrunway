@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 import { type Locale, localeConfig, locales } from '@/lib/i18n/config';
 import type { Tool, ToolContent } from '@/types/tool';
-import { getBasePath } from '@/lib/utils/path';
+import { getBasePath, withBasePath } from '@/lib/utils/path';
 
 /**
  * Base metadata configuration
@@ -42,8 +42,16 @@ export interface ToolMetadataOptions extends BaseMetadataOptions {
  * Generate the canonical URL for a page
  */
 export function getCanonicalUrl(locale: Locale, path: string = ''): string {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  // Normalize the page path: remove /tools/ prefix for tools if needed
+  let cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (cleanPath.startsWith('/tools/') && !cleanPath.startsWith('/tools/category/')) {
+    cleanPath = cleanPath.replace(/^\/tools/, '');
+  }
+
   const basePath = getBasePath().replace(/\/$/, '');
+  if (locale === 'en') {
+    return `${siteConfig.url}${basePath}${cleanPath}`;
+  }
   return `${siteConfig.url}${basePath}/${locale}${cleanPath}`;
 }
 
@@ -51,16 +59,24 @@ export function getCanonicalUrl(locale: Locale, path: string = ''): string {
  * Generate alternate language URLs for hreflang tags
  */
 export function getAlternateUrls(path: string = ''): Record<string, string> {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  let cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (cleanPath.startsWith('/tools/') && !cleanPath.startsWith('/tools/category/')) {
+    cleanPath = cleanPath.replace(/^\/tools/, '');
+  }
+
   const alternates: Record<string, string> = {};
   const basePath = getBasePath().replace(/\/$/, '');
 
   for (const locale of locales) {
-    alternates[locale] = `${siteConfig.url}${basePath}/${locale}${cleanPath}`;
+    if (locale === 'en') {
+      alternates[locale] = `${siteConfig.url}${basePath}${cleanPath}`;
+    } else {
+      alternates[locale] = `${siteConfig.url}${basePath}/${locale}${cleanPath}`;
+    }
   }
 
-  // Add x-default pointing to English
-  alternates['x-default'] = `${siteConfig.url}${basePath}/en${cleanPath}`;
+  // Add x-default pointing to English (non-prefixed)
+  alternates['x-default'] = `${siteConfig.url}${basePath}${cleanPath}`;
 
   return alternates;
 }
@@ -101,9 +117,9 @@ export function generateBaseMetadata(options: PageMetadataOptions): Metadata {
         'max-video-preview': -1,
       },
     icons: {
-      icon: '/images/favicon.ico',
-      shortcut: '/images/favicon.ico',
-      apple: '/images/favicon.ico',
+      icon: withBasePath('/images/favicon.ico?v=1'),
+      shortcut: withBasePath('/images/favicon.ico?v=1'),
+      apple: withBasePath('/images/favicon.ico?v=1'),
     },
     alternates: {
       canonical: canonicalUrl,
@@ -147,7 +163,7 @@ export function generateBaseMetadata(options: PageMetadataOptions): Metadata {
  */
 export function generateToolMetadata(options: ToolMetadataOptions): Metadata {
   const { locale, tool, content } = options;
-  const path = `/tools/${tool.slug}`;
+  const path = `/${tool.slug}`;
 
   // Enhance keywords with common PDF-related terms
   const enhancedKeywords = [

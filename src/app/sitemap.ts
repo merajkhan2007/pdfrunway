@@ -53,8 +53,12 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
   
   // Add static pages
   for (const page of STATIC_PAGES) {
+    const url = locale === 'en'
+      ? `${siteConfig.url}${page.path}`
+      : `${siteConfig.url}/${locale}${page.path}`;
+
     entries.push({
-      url: `${siteConfig.url}/${locale}${page.path}`,
+      url,
       lastModified,
       changeFrequency: page.changeFrequency as 'daily' | 'weekly' | 'monthly',
       priority: page.priority,
@@ -64,8 +68,12 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
   // Add tool pages
   const tools = getAllTools();
   for (const tool of tools) {
+    const url = locale === 'en'
+      ? `${siteConfig.url}/${tool.slug}`
+      : `${siteConfig.url}/${locale}/${tool.slug}`;
+
     entries.push({
-      url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
+      url,
       lastModified,
       changeFrequency: CHANGE_FREQUENCY.toolPage,
       priority: PRIORITY.toolPage,

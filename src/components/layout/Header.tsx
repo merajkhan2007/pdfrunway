@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Search, Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import { type Locale } from '@/lib/i18n/config';
+import { type Locale, getLocalizedPath } from '@/lib/i18n/config';
 import { Button } from '@/components/ui/Button';
 import { RecentFilesDropdown } from '@/components/common/RecentFilesDropdown';
 import { searchTools, SearchResult } from '@/lib/utils/search';
@@ -109,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
   }, [searchResults, selectedIndex]);
 
   const navigateToTool = useCallback((slug: string) => {
-    router.push(`/${locale}/tools/${slug}`);
+    router.push(getLocalizedPath(`/tools/${slug}`, locale));
     setIsSearchOpen(false);
     setSearchQuery('');
     setSearchResults([]);
@@ -156,11 +156,11 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
   };
 
   const navItems = [
-    { href: `/${locale}`, label: t('navigation.home') },
-    { href: `/${locale}/tools`, label: t('navigation.tools') },
-    { href: `/${locale}/workflow`, label: t('navigation.workflow') || 'Workflow' },
-    { href: `/${locale}/about`, label: t('navigation.about') },
-    { href: `/${locale}/faq`, label: t('navigation.faq') },
+    { href: getLocalizedPath('/', locale), label: t('navigation.home') },
+    { href: getLocalizedPath('/tools', locale), label: t('navigation.tools') },
+    { href: getLocalizedPath('/workflow', locale), label: t('navigation.workflow') || 'Workflow' },
+    { href: getLocalizedPath('/about', locale), label: t('navigation.about') },
+    { href: getLocalizedPath('/faq', locale), label: t('navigation.faq') },
   ];
 
   return (
@@ -176,7 +176,7 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
           {/* Logo and Brand */}
           <div className="flex flex-1 items-center gap-2">
             <Link
-              href={`/${locale}`}
+              href={getLocalizedPath('/', locale)}
               className="group flex items-center hover:opacity-90 transition-opacity"
               aria-label={`${t('brand')} - ${t('navigation.home')}`}
             >

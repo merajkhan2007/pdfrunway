@@ -164,7 +164,7 @@ export function generateSoftwareApplicationSchema(
     '@type': 'SoftwareApplication',
     name: content.title,
     description: content.metaDescription,
-    url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
+    url: locale === 'en' ? `${siteConfig.url}/${tool.slug}` : `${siteConfig.url}/${locale}/${tool.slug}`,
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Windows, macOS, Linux, iOS, Android, Chrome OS',
     offers: {
@@ -217,7 +217,9 @@ export function generateHowToSchema(
       position: step.step,
       name: step.title,
       text: step.description,
-      url: `${siteConfig.url}/${locale}/tools/${tool.slug}#step-${step.step}`,
+      url: locale === 'en'
+        ? `${siteConfig.url}/${tool.slug}#step-${step.step}`
+        : `${siteConfig.url}/${locale}/${tool.slug}#step-${step.step}`,
     })),
   };
 }
@@ -252,7 +254,7 @@ export function generateWebPageSchema(
     '@type': 'WebPage',
     name: content.title,
     description: content.metaDescription,
-    url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
+    url: locale === 'en' ? `${siteConfig.url}/${tool.slug}` : `${siteConfig.url}/${locale}/${tool.slug}`,
     inLanguage: languageMap[locale] || 'en-US',
     isPartOf: {
       '@type': 'WebSite',
@@ -296,13 +298,15 @@ export function generateWebSiteSchema(locale: Locale): WebSiteSchema {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteConfig.name,
-    url: `${siteConfig.url}/${locale}`,
+    url: locale === 'en' ? siteConfig.url : `${siteConfig.url}/${locale}`,
     description: siteConfig.description,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${siteConfig.url}/${locale}/tools?q={search_term_string}`,
+        urlTemplate: locale === 'en'
+          ? `${siteConfig.url}/tools?q={search_term_string}`
+          : `${siteConfig.url}/${locale}/tools?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -333,12 +337,21 @@ export function generateBreadcrumbSchema(
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: `${siteConfig.url}/${locale}${item.path}`,
-    })),
+    itemListElement: items.map((item, index) => {
+      let itemPath = item.path;
+      if (itemPath.startsWith('/tools/') && !itemPath.startsWith('/tools/category/')) {
+        itemPath = itemPath.replace(/^\/tools/, '');
+      }
+      const url = locale === 'en'
+        ? `${siteConfig.url}${itemPath}`
+        : `${siteConfig.url}/${locale}${itemPath}`;
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: url,
+      };
+    }),
   };
 }
 
@@ -369,7 +382,7 @@ export function generateToolPageStructuredData(
     [
       { name: 'Home', path: '' },
       { name: 'Tools', path: '/tools' },
-      { name: content.title, path: `/tools/${tool.slug}` },
+      { name: content.title, path: `/${tool.slug}` },
     ],
     locale
   );

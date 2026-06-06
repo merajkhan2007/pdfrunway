@@ -9,3 +9,4 @@ export {
   saveLanguagePreference,
   getLanguagePreference 
 } from './LanguageSelector';
+export { default as RootWrapper } from './RootWrapper';

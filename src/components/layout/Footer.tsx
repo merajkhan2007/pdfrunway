@@ -27,45 +27,45 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
 
   // Tools Column links
   const toolsLinks = [
-    { href: `/${locale}/tools/merge-pdf`, label: 'Merge PDF' },
-    { href: `/${locale}/tools/compress-pdf`, label: 'Compress PDF' },
-    { href: `/${locale}/tools/split-pdf`, label: 'Split PDF' },
-    { href: `/${locale}/tools/ocr-pdf`, label: 'OCR PDF' },
-    { href: `/${locale}/tools/edit-pdf`, label: 'Edit PDF' },
-    { href: `/${locale}/tools/sign-pdf`, label: 'Sign PDF' },
-    { href: `/${locale}/tools/crop-pdf`, label: 'Crop PDF' },
+    { href: getLocalizedPath('/tools/merge-pdf', locale), label: 'Merge PDF' },
+    { href: getLocalizedPath('/tools/compress-pdf', locale), label: 'Compress PDF' },
+    { href: getLocalizedPath('/tools/split-pdf', locale), label: 'Split PDF' },
+    { href: getLocalizedPath('/tools/ocr-pdf', locale), label: 'OCR PDF' },
+    { href: getLocalizedPath('/tools/edit-pdf', locale), label: 'Edit PDF' },
+    { href: getLocalizedPath('/tools/sign-pdf', locale), label: 'Sign PDF' },
+    { href: getLocalizedPath('/tools/crop-pdf', locale), label: 'Crop PDF' },
   ];
 
   // Popular Tools Column links
   const popularToolsLinks = [
-    { href: `/${locale}/tools/pdf-to-docx`, label: 'PDF to Word' },
-    { href: `/${locale}/tools/word-to-pdf`, label: 'Word to PDF' },
-    { href: `/${locale}/tools/pdf-to-jpg`, label: 'PDF to JPG' },
-    { href: `/${locale}/tools/webp-to-pdf`, label: 'WebP to PDF' },
-    { href: `/${locale}/tools/jpg-to-pdf`, label: 'JPG to PDF' },
-    { href: `/${locale}/tools/png-to-pdf`, label: 'PNG to PDF' },
-    { href: `/${locale}/tools/encrypt-pdf`, label: 'Encrypt PDF' },
+    { href: getLocalizedPath('/tools/pdf-to-docx', locale), label: 'PDF to Word' },
+    { href: getLocalizedPath('/tools/word-to-pdf', locale), label: 'Word to PDF' },
+    { href: getLocalizedPath('/tools/pdf-to-jpg', locale), label: 'PDF to JPG' },
+    { href: getLocalizedPath('/tools/webp-to-pdf', locale), label: 'WebP to PDF' },
+    { href: getLocalizedPath('/tools/jpg-to-pdf', locale), label: 'JPG to PDF' },
+    { href: getLocalizedPath('/tools/png-to-pdf', locale), label: 'PNG to PDF' },
+    { href: getLocalizedPath('/tools/encrypt-pdf', locale), label: 'Encrypt PDF' },
   ];
 
   // Resources Column links
   const resourcesLinks = [
-    { href: `/${locale}/blog`, label: 'Blog' },
-    { href: `/${locale}/faq`, label: t('navigation.faq') || 'FAQ' },
-    { href: `/${locale}/contact`, label: t('navigation.contact') || 'Contact' },
+    { href: getLocalizedPath('/blog', locale), label: 'Blog' },
+    { href: getLocalizedPath('/faq', locale), label: t('navigation.faq') || 'FAQ' },
+    { href: getLocalizedPath('/contact', locale), label: t('navigation.contact') || 'Contact' },
   ];
 
   // Company Column links
   const companyLinks = [
-    { href: `/${locale}/about`, label: t('navigation.about') || 'About Us' },
-    { href: `/${locale}/careers`, label: 'Careers' },
-    { href: `/${locale}/brand`, label: 'Brand Guidelines' },
+    { href: getLocalizedPath('/about', locale), label: t('navigation.about') || 'About Us' },
+    { href: getLocalizedPath('/careers', locale), label: 'Careers' },
+    { href: getLocalizedPath('/brand', locale), label: 'Brand Guidelines' },
   ];
 
   // Legal Column links
   const legalLinks = [
-    { href: `/${locale}/privacy`, label: t('navigation.privacy') || 'Privacy Policy' },
-    { href: `/${locale}/terms`, label: 'Terms of Service' },
-    { href: `/${locale}/cookies`, label: 'Cookie Policy' },
+    { href: getLocalizedPath('/privacy', locale), label: t('navigation.privacy') || 'Privacy Policy' },
+    { href: getLocalizedPath('/terms', locale), label: 'Terms of Service' },
+    { href: getLocalizedPath('/cookies', locale), label: 'Cookie Policy' },
   ];
 
   return (
@@ -79,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
           {/* Brand & Tagline Column */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Link
-              href={`/${locale}`}
+              href={getLocalizedPath('/', locale)}
               className="group flex items-center hover:opacity-90 transition-opacity"
               aria-label={`${t('brand')} - ${t('navigation.home')}`}
             >
@@ -268,9 +268,9 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
             &copy; {currentYear} {t('brand') || 'PDFRunway'}. {t('footer.copyright', { year: '' }).replace(/^\d{4}\s*/, '') || 'All rights reserved.'}
           </p>
           <div className="flex items-center gap-6">
-            <Link href={`/${locale}/terms`} className="text-xs text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))]">Terms of Service</Link>
-            <Link href={`/${locale}/privacy`} className="text-xs text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))]">Privacy Policy</Link>
-            <Link href={`/${locale}/cookies`} className="text-xs text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))]">Cookie Policy</Link>
+            <Link href={getLocalizedPath('/terms', locale)} className="text-xs text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))]">Terms of Service</Link>
+            <Link href={getLocalizedPath('/privacy', locale)} className="text-xs text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))]">Privacy Policy</Link>
+            <Link href={getLocalizedPath('/cookies', locale)} className="text-xs text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))]">Cookie Policy</Link>
           </div>
         </div>
       </div>

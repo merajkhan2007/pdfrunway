@@ -8,6 +8,6 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale,
 
-  // Always use locale prefix in URL
-  localePrefix: 'always',
+  // Use locale prefix only when needed (non-default locales)
+  localePrefix: 'as-needed',
 });

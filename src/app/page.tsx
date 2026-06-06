@@ -1,31 +1,16 @@
-'use client';
+import HomePage from './[localeOrTool]/page';
+import LanguageRedirect from './LanguageRedirect';
+import { RootWrapper } from '@/components/layout';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { locales, defaultLocale } from '@/lib/i18n/config';
-
-// Root page handles client-side redirection based on browser language
-export default function RootPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    try {
-      // Get browser language
-      const browserLang = navigator.language;
-      const primaryLang = browserLang.split('-')[0];
-
-      // Check if the language is supported
-      if ((locales as readonly string[]).includes(primaryLang)) {
-        router.replace(`/${primaryLang}`);
-      } else {
-        router.replace(`/${defaultLocale}`);
-      }
-    } catch (error) {
-      // Fallback to default locale if anything goes wrong
-      router.replace(`/${defaultLocale}`);
-    }
-  }, [router]);
-
-  // Render nothing while redirecting
-  return null;
+// Root page renders the English homepage directly (for SEO and non-prefixed English URL support)
+// and loads LanguageRedirect for client-side routing of non-English users.
+export default async function RootPage() {
+  return (
+    <RootWrapper>
+      <LanguageRedirect />
+      <HomePage params={Promise.resolve({ localeOrTool: 'en' })} />
+    </RootWrapper>
+  );
 }
+
+

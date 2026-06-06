@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import * as fc from 'fast-check';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import React from 'react';
 import { tools } from '@/config/tools';
 import { locales } from '@/lib/i18n/config';
@@ -42,6 +42,7 @@ describe('Tool Component Property Tests', () => {
           fc.constantFrom(...tools),
           fc.constantFrom(...locales),
           (tool, locale) => {
+            cleanup();
             const { unmount } = render(<ToolCard tool={tool} locale={locale} />);
             
             // Tool card should be rendered
@@ -75,6 +76,7 @@ describe('Tool Component Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const { unmount } = render(<ToolCard tool={tool} locale="en" />);
             
             const nameElement = screen.getByTestId('tool-card-name');
@@ -99,10 +101,11 @@ describe('Tool Component Property Tests', () => {
           fc.constantFrom(...tools),
           fc.constantFrom(...locales),
           (tool, locale) => {
+            cleanup();
             const { unmount } = render(<ToolCard tool={tool} locale={locale} />);
             
             const linkElement = screen.getByTestId('tool-card');
-            const expectedUrl = `/${locale}/tools/${tool.slug}`;
+            const expectedUrl = locale === 'en' ? `/${tool.slug}` : `/${locale}/${tool.slug}`;
             
             expect(linkElement).toHaveAttribute('href', expectedUrl);
             
@@ -119,6 +122,7 @@ describe('Tool Component Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const { unmount } = render(<ToolCard tool={tool} locale="en" />);
             
             const iconElement = screen.getByTestId('tool-card-icon');
@@ -140,6 +144,7 @@ describe('Tool Component Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const { unmount } = render(<ToolCard tool={tool} locale="en" />);
             
             const descriptionElement = screen.getByTestId('tool-card-description');
@@ -223,6 +228,7 @@ describe('Tool Page Property Tests', () => {
           fc.constantFrom(...tools),
           fc.constantFrom(...locales),
           (tool, locale) => {
+            cleanup();
             const content = generateValidToolContent(tool);
             const { unmount } = render(
               <ToolPage tool={tool} content={content} locale={locale}>
@@ -273,6 +279,7 @@ describe('Tool Page Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const content = generateValidToolContent(tool);
             const { unmount } = render(
               <ToolPage tool={tool} content={content} locale="en">
@@ -296,6 +303,7 @@ describe('Tool Page Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const content = generateValidToolContent(tool);
             const { unmount } = render(
               <ToolPage tool={tool} content={content} locale="en">
@@ -323,6 +331,7 @@ describe('Tool Page Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const content = generateValidToolContent(tool);
             const { unmount } = render(
               <ToolPage tool={tool} content={content} locale="en">
@@ -349,6 +358,7 @@ describe('Tool Page Property Tests', () => {
         fc.property(
           fc.constantFrom(...tools),
           (tool) => {
+            cleanup();
             const content = generateValidToolContent(tool);
             const { unmount } = render(
               <ToolPage tool={tool} content={content} locale="en">

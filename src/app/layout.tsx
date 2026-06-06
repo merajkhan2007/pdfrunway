@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
+import { withBasePath } from '@/lib/utils/path';
 
 export const metadata: Metadata = {
   title: 'Free PDF Tools Online – Edit, Convert, Merge & Compress PDFs | PDFRunway',
   description: 'Everything Your PDF Needs, Ready for Takeoff. Free online PDF tools for merging, splitting, compressing, and converting PDF files. All processing happens in your browser.',
   icons: {
-    icon: '/images/favicon.ico',
-    shortcut: '/images/favicon.ico',
-    apple: '/images/favicon.ico',
+    icon: withBasePath('/images/favicon.ico?v=1'),
+    shortcut: withBasePath('/images/favicon.ico?v=1'),
+    apple: withBasePath('/images/favicon.ico?v=1'),
   },
 };
 

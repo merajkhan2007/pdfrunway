@@ -68,6 +68,7 @@ jobs:
         env:
           # Add any required environment variables here
           NODE_ENV: production
+          BASE_PATH: /pdfrunway
 
       # Upload artifact for deployment
       - name: Upload artifact

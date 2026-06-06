@@ -7,6 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { Tool, ToolCategory } from '@/types/tool';
 import { getToolIcon } from '@/config/icons';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
+import { getLocalizedPath, type Locale } from '@/lib/i18n/config';
 
 export interface ToolCardProps {
   tool: Tool;
@@ -36,7 +37,7 @@ const categoryColors: Record<ToolCategory, { iconBg: string; iconColor: string; 
 
 export function ToolCard({ tool, locale, className = '', localizedContent }: ToolCardProps) {
   const t = useTranslations();
-  const toolUrl = `/${locale}/tools/${tool.slug}`;
+  const toolUrl = getLocalizedPath(`/tools/${tool.slug}`, locale as Locale);
 
   const toolName = localizedContent?.title
     || tool.id.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');

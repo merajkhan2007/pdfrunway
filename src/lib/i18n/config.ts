@@ -56,14 +56,30 @@ export function getLocaleFromPath(path: string): Locale | null {
   return null;
 }
 
-/**
- * Generate localized path
- */
 export function getLocalizedPath(path: string, locale: Locale): string {
   // Remove any existing locale prefix (must be followed by / or end of string)
-  const cleanPath = path.replace(/^\/(en|ja|ko|es|fr|de|zh-TW|zh|pt|ar|it|id|vi|ro)(\/|$)/, '/');
+  let cleanPath = path.replace(/^\/(en|ja|ko|es|fr|de|zh-TW|zh|pt|ar|it|id|vi|ro)(\/|$)/, '/');
+  
   // Normalize the path - ensure it starts with / and handle empty paths
-  const normalizedPath = cleanPath === '/' ? '/' : cleanPath.replace(/^\/+/, '/');
+  cleanPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+  cleanPath = cleanPath.replace(/\/+/g, '/');
+
+  // Remove "/tools/" segment for individual tools, but keep it for listing / category pages
+  // e.g. "/tools/merge-pdf" -> "/merge-pdf"
+  if (cleanPath.startsWith('/tools/') && !cleanPath.startsWith('/tools/category/')) {
+    const toolSlug = cleanPath.replace(/^\/tools\//, '');
+    cleanPath = `/${toolSlug}`;
+  }
+
+  // Normalize path again
+  cleanPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+  cleanPath = cleanPath.replace(/\/+/g, '/');
+
+  // For English, return without locale prefix
+  if (locale === 'en') {
+    return cleanPath;
+  }
+
   // Add the new locale prefix
-  return `/${locale}${normalizedPath === '/' ? '/' : normalizedPath}`;
+  return cleanPath === '/' ? `/${locale}` : `/${locale}${cleanPath}`;
 }

@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ChevronDown } from 'lucide-react';
-import { type Locale } from '@/lib/i18n/config';
+import { type Locale, getLocalizedPath } from '@/lib/i18n/config';
 import { type ToolCategory } from '@/types/tool';
 
 export interface NavigationProps {
@@ -27,19 +27,19 @@ export const Navigation: React.FC<NavigationProps> = ({ locale, currentPath }) =
   const menuItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   const categories: CategoryItem[] = [
-    { id: 'edit-annotate', labelKey: 'editAnnotate', href: `/${locale}/tools?category=edit-annotate` },
-    { id: 'convert-to-pdf', labelKey: 'convertToPdf', href: `/${locale}/tools?category=convert-to-pdf` },
-    { id: 'convert-from-pdf', labelKey: 'convertFromPdf', href: `/${locale}/tools?category=convert-from-pdf` },
-    { id: 'organize-manage', labelKey: 'organizeManage', href: `/${locale}/tools?category=organize-manage` },
-    { id: 'optimize-repair', labelKey: 'optimizeRepair', href: `/${locale}/tools?category=optimize-repair` },
-    { id: 'secure-pdf', labelKey: 'securePdf', href: `/${locale}/tools?category=secure-pdf` },
+    { id: 'edit-annotate', labelKey: 'editAnnotate', href: getLocalizedPath('/tools?category=edit-annotate', locale) },
+    { id: 'convert-to-pdf', labelKey: 'convertToPdf', href: getLocalizedPath('/tools?category=convert-to-pdf', locale) },
+    { id: 'convert-from-pdf', labelKey: 'convertFromPdf', href: getLocalizedPath('/tools?category=convert-from-pdf', locale) },
+    { id: 'organize-manage', labelKey: 'organizeManage', href: getLocalizedPath('/tools?category=organize-manage', locale) },
+    { id: 'optimize-repair', labelKey: 'optimizeRepair', href: getLocalizedPath('/tools?category=optimize-repair', locale) },
+    { id: 'secure-pdf', labelKey: 'securePdf', href: getLocalizedPath('/tools?category=secure-pdf', locale) },
   ];
 
   const mainNavItems = [
-    { href: `/${locale}`, label: tCommon('navigation.home') },
-    { href: `/${locale}/tools`, label: tCommon('navigation.tools'), hasDropdown: true },
-    { href: `/${locale}/about`, label: tCommon('navigation.about') },
-    { href: `/${locale}/faq`, label: tCommon('navigation.faq') },
+    { href: getLocalizedPath('/', locale), label: tCommon('navigation.home') },
+    { href: getLocalizedPath('/tools', locale), label: tCommon('navigation.tools'), hasDropdown: true },
+    { href: getLocalizedPath('/about', locale), label: tCommon('navigation.about') },
+    { href: getLocalizedPath('/faq', locale), label: tCommon('navigation.faq') },
   ];
 
   // Close dropdown when clicking outside
@@ -130,8 +130,9 @@ export const Navigation: React.FC<NavigationProps> = ({ locale, currentPath }) =
   }, [categories.length]);
 
   const isActive = (href: string) => {
-    if (href === `/${locale}`) {
-      return currentPath === `/${locale}` || currentPath === `/${locale}/`;
+    const homePath = getLocalizedPath('/', locale);
+    if (href === homePath) {
+      return currentPath === homePath || currentPath === `${homePath}/` || currentPath === '';
     }
     return currentPath.startsWith(href);
   };

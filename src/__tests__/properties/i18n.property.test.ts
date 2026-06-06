@@ -232,13 +232,18 @@ describe('i18n Property Tests', () => {
         (locale, path) => {
           const localizedPath = getLocalizedPath(path, locale);
 
-          // The localized path should start with the locale prefix
-          expect(localizedPath).toMatch(new RegExp(`^/${locale}(/|$)`));
+          if (locale !== 'en') {
+            // The localized path should start with the locale prefix
+            expect(localizedPath).toMatch(new RegExp(`^/${locale}(/|$)`));
 
-          // The locale prefix should be a valid locale
-          const extractedLocale = localizedPath.split('/')[1];
-          expect(isValidLocale(extractedLocale)).toBe(true);
-          expect(extractedLocale).toBe(locale);
+            // The locale prefix should be a valid locale
+            const extractedLocale = localizedPath.split('/')[1];
+            expect(isValidLocale(extractedLocale)).toBe(true);
+            expect(extractedLocale).toBe(locale);
+          } else {
+            // English should not be prefixed
+            expect(localizedPath).not.toMatch(/^\/en(\/|$)/);
+          }
 
           return true;
         }
@@ -259,24 +264,31 @@ describe('i18n Property Tests', () => {
       fc.property(
         fc.constantFrom(...locales),
         fc.constantFrom(...locales),
-        fc.constantFrom('/tools/merge-pdf', '/about', '/faq', '/privacy', '/'),
+        fc.constantFrom('/merge-pdf', '/about', '/faq', '/privacy', '/'),
         (originalLocale, newLocale, basePath) => {
           // Create a path with the original locale
-          const pathWithLocale = `/${originalLocale}${basePath === '/' ? '' : basePath}`;
+          const pathWithLocale = originalLocale === 'en'
+            ? basePath
+            : `/${originalLocale}${basePath === '/' ? '' : basePath}`;
 
           // Generate localized path with new locale
           const result = getLocalizedPath(pathWithLocale, newLocale);
 
-          // Result should have the new locale prefix
-          expect(result).toMatch(new RegExp(`^/${newLocale}(/|$)`));
+          if (newLocale !== 'en') {
+            // Result should have the new locale prefix
+            expect(result).toMatch(new RegExp(`^/${newLocale}(/|$)`));
 
-          // Result should not contain the original locale (unless it's the same)
-          if (originalLocale !== newLocale) {
             // The path should not have double locale prefixes
             const segments = result.split('/').filter(Boolean);
             const localeSegments = segments.filter(s => isValidLocale(s));
             expect(localeSegments.length).toBe(1);
             expect(localeSegments[0]).toBe(newLocale);
+          } else {
+            // Result should NOT have any locale prefix
+            expect(result).not.toMatch(/^\/(en|ja|ko|es|fr|de|zh-TW|zh|pt|ar|it|id|vi|ro)(\/|$)/);
+            const segments = result.split('/').filter(Boolean);
+            const localeSegments = segments.filter(s => isValidLocale(s));
+            expect(localeSegments.length).toBe(0);
           }
 
           return true;
@@ -300,8 +312,11 @@ describe('i18n Property Tests', () => {
         (locale) => {
           const localizedPath = getLocalizedPath('/', locale);
 
-          // Should be exactly /{locale}/
-          expect(localizedPath).toBe(`/${locale}/`);
+          if (locale === 'en') {
+            expect(localizedPath).toBe('/');
+          } else {
+            expect(localizedPath).toBe(`/${locale}`);
+          }
 
           return true;
         }
