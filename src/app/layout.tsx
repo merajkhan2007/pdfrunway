@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 // Root layout - provides the basic HTML structure
-// The actual layout with i18n is in [locale]/layout.tsx
+// The actual layout with i18n is in [localeOrTool]/layout.tsx
 export default function RootLayout({
   children,
 }: {
