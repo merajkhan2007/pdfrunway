@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: 'Free PDF Tools Online – Edit, Convert, Merge & Compress PDFs | PDFRunway',
   description: 'Everything Your PDF Needs, Ready for Takeoff. Free online PDF tools for merging, splitting, compressing, and converting PDF files. All processing happens in your browser.',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: '/images/favicon.ico',
+    shortcut: '/images/favicon.ico',
+    apple: '/images/favicon.ico',
   },
 };
 
