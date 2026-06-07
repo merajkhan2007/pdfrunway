@@ -22,31 +22,7 @@ interface HomePageClientProps {
   localizedToolContent?: Record<string, { title: string; description: string }>;
 }
 
-/* ─── Animated Counter ─────────────────────────────────── */
-function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      observer.disconnect();
-      let start = 0;
-      const step = Math.ceil(to / 60) || 1;
-      const timer = setInterval(() => {
-        start += step;
-        if (start >= to) {
-          setCount(to);
-          clearInterval(timer);
-        } else {
-          setCount(start);
-        }
-      }, 16);
-    });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [to]);
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
-}
+
 
 export default function HomePageClient({ locale, localizedToolContent }: HomePageClientProps) {
   const t = useTranslations();
@@ -647,34 +623,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
         </section>
 
 
-        {/* ════════════════════════════════════════════════════════
-            SOCIAL PROOF (STATS) SECTION
-        ════════════════════════════════════════════════════════ */}
-        <section className="relative py-16 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-900" aria-label="Statistics">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto text-center">
-              {[
-                { value: allTools.length, suffix: '+', label: 'PDF Tools', icon: Settings, color: 'text-[#E31E24]', bg: 'bg-red-50 dark:bg-red-950/20' },
-                { value: 500, suffix: 'K+', label: 'Files Processed', icon: TrendingUp, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-950/20' },
-                { value: 100, suffix: '%', label: 'Private', icon: Shield, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-950/20' },
-                { value: 9, suffix: '+', label: 'Languages', icon: Globe, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-50 dark:bg-purple-950/20' },
-              ].map(stat => {
-                const Icon = stat.icon;
-                return (
-                  <div key={stat.label} className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-gray-50/50 dark:bg-gray-900/40 border border-gray-100/70 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                    <div className={`p-3 rounded-xl ${stat.bg} ${stat.color} shadow-sm`}>
-                      <Icon className="h-6.5 w-6.5" />
-                    </div>
-                    <div className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${stat.color}`}>
-                      <Counter to={stat.value} suffix={stat.suffix} />
-                    </div>
-                    <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{stat.label}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+
 
 
         {/* ════════════════════════════════════════════════════════
@@ -1167,7 +1116,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
         <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-gray-150 dark:border-gray-900">
           <div className="container mx-auto px-4 text-center max-w-3xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 mb-4 rounded-full bg-[#E31E24]/10 text-[#E31E24] text-xs font-bold uppercase tracking-wider">
-              <Users className="h-3.5 w-3.5" /> Join 500K+ Users
+              <Shield className="h-3.5 w-3.5" /> 100% Secure &amp; Local
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B2A4A] dark:text-white tracking-tight mb-4">
               Ready to Process Your Files Securely?
