@@ -210,16 +210,20 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
     { id: 'merge-pdf', label: 'Merge PDF', icon: Merge },
     { id: 'compress-pdf', label: 'Compress PDF', icon: Minimize2 },
     { id: 'pdf-to-docx', label: 'PDF to Word', icon: FileText },
-    { id: 'word-to-pdf', label: 'Word to PDF', icon: FileText },
     { id: 'ocr-pdf', label: 'OCR PDF', icon: ScanText },
-    { id: 'edit-pdf', label: 'Edit PDF', icon: Edit },
     { id: 'sign-pdf', label: 'Sign PDF', icon: PenTool },
   ];
 
   /* ── Popular tools list ── */
   const popularToolsKeys = [
-    'merge-pdf', 'compress-pdf', 'pdf-to-docx', 'word-to-pdf',
-    'ocr-pdf', 'edit-pdf', 'sign-pdf', 'encrypt-pdf',
+    'merge-pdf',
+    'compress-pdf',
+    'pdf-to-docx',
+    'word-to-pdf',
+    'ocr-pdf',
+    'sign-pdf',
+    'edit-pdf',
+    'jpg-to-pdf',
   ];
 
   const popularTools = popularToolsKeys
@@ -228,10 +232,10 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
 
   /* ── Blog posts ── */
   const blogPosts = [
-    { title: 'How to Merge PDF Files Online for Free', cat: 'Guide', read: '3 min', slug: 'merge-pdf', color: 'from-red-500 to-amber-500' },
-    { title: 'Best Free PDF Editor Tools in 2026', cat: 'Review', read: '5 min', slug: 'edit-pdf', color: 'from-blue-500 to-indigo-500' },
-    { title: 'PDF to Word: Complete Conversion Guide', cat: 'Tutorial', read: '4 min', slug: 'pdf-to-docx', color: 'from-purple-500 to-pink-500' },
-    { title: 'What is OCR and How It Works with PDFs', cat: 'Explainer', read: '6 min', slug: 'ocr-pdf', color: 'from-green-500 to-teal-500' },
+    { title: 'How to Merge PDF Files Online', cat: 'Guide', read: '3 min', slug: 'how-to-merge-pdf-files-online', color: 'from-red-500 to-amber-500' },
+    { title: 'How to Compress PDF Without Losing Quality', cat: 'Guide', read: '4 min', slug: 'how-to-compress-pdf-without-losing-quality', color: 'from-blue-500 to-indigo-500' },
+    { title: 'PDF to Word Conversion Guide', cat: 'Tutorial', read: '5 min', slug: 'pdf-to-word-conversion-guide', color: 'from-purple-500 to-pink-500' },
+    { title: 'How to Sign PDF Documents', cat: 'Guide', read: '3 min', slug: 'how-to-sign-pdf-documents', color: 'from-green-500 to-teal-500' },
   ];
 
   /* ── Tool Recommendation Mapping ── */
@@ -323,42 +327,66 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
     'mainEntity': [
       {
         '@type': 'Question',
-        'name': 'Is PDFRunway completely free to use?',
+        'name': 'Is PDFRunway free?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': `Yes. All 131+ tools on PDFRunway are completely free with no registration, no subscription, and no hidden fees. Every feature is available to every user directly in the browser.`
+          'text': 'Yes, PDFRunway is 100% free. You can use all 131+ PDF tools without paying, signing up, or experiencing watermark restrictions. Every feature is fully available to all users.'
         }
       },
       {
         '@type': 'Question',
-        'name': 'Are my PDF files safe on PDFRunway?',
+        'name': 'Are my PDF files secure?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'Absolutely. PDFRunway uses client-side WebAssembly processing, meaning your files never leave your device. Nothing is uploaded to any server. Your documents stay 100% private.'
+          'text': 'Absolutely. PDFRunway processes all files client-side in your browser using WebAssembly. Your files are never uploaded to our servers, keeping your private data 100% secure.'
         }
       },
       {
         '@type': 'Question',
-        'name': 'Do I need to create an account to use PDFRunway?',
+        'name': 'Do I need to install software?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'No account or sign-up is required. Open PDFRunway, choose your tool, upload your file, and download the result — all without registration.'
+          'text': 'No installation is required. PDFRunway is an entirely browser-based application that works directly in Chrome, Firefox, Safari, Edge, or mobile browsers.'
         }
       },
       {
         '@type': 'Question',
-        'name': 'What file formats does PDFRunway support?',
+        'name': 'Can I convert PDF to Word?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'PDFRunway supports PDF, Word (DOC/DOCX), Excel (XLS/XLSX), PowerPoint (PPT/PPTX), JPG, PNG, WebP, BMP, TIFF, SVG, HEIC, TXT, RTF, EPUB, and many more.'
+          'text': 'Yes, you can convert PDF to Word (DOCX) files easily. Our converter runs fully in-browser, extracting text and tables while maintaining original formatting.'
         }
       },
       {
         '@type': 'Question',
-        'name': 'Does PDFRunway work on mobile devices?',
+        'name': 'Can I merge PDF files online?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'Yes. PDFRunway is fully responsive and works on all modern mobile browsers on iOS and Android devices, using localized hardware accelerators.'
+          'text': 'Yes, you can merge multiple PDF documents into a single consolidated file instantly, reordering pages as needed.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Does PDFRunway support OCR?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Yes. PDFRunway features browser-based OCR (Optical Character Recognition) to extract editable text layers from scanned PDFs or images.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Can I sign PDF documents online?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Yes. You can digitally draw, type, or upload your signature to place it securely onto any contract layout, completely offline in your browser.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Is PDFRunway mobile friendly?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Yes, PDFRunway is optimized for mobile-first responsiveness. It runs fast on any iPhone, iPad, or Android browser using localized hardware acceleration.'
         }
       }
     ]
@@ -418,8 +446,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
 
               {/* Headline (H1) */}
               <h1 id="hero-title" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
-                Free PDF Tools Online —<br />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E31E24] via-red-500 to-amber-400">Edit, Convert, Merge &amp; Secure</span> PDFs
+                Free PDF Tools Online – <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E31E24] via-red-500 to-amber-400">Edit, Convert, Merge &amp; Secure</span> PDFs
               </h1>
 
               {/* Subheadline */}
@@ -569,14 +596,18 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
               {/* Popular Tool Chips */}
               <div className="flex flex-wrap justify-center items-center gap-2.5 mb-12">
                 <span className="text-white/40 text-xs font-semibold uppercase tracking-wider mr-1 select-none">Popular:</span>
-                {heroChips.map(chip => (
-                  <Link key={chip.id} href={getLocalizedPath(`/tools/${chip.id}`, locale)}
-                    onClick={() => trackToolClick(chip.id)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 dark:bg-gray-900/60 hover:bg-white/20 border border-white/15 hover:border-white/30 text-white/90 hover:text-white text-xs font-semibold transition-all shadow-sm">
-                    <chip.icon className="h-3.5 w-3.5" />
-                    {chip.label}
-                  </Link>
-                ))}
+                {heroChips.map(chip => {
+                  const tool = allTools.find(t => t.id === chip.id);
+                  const slug = tool?.slug || chip.id;
+                  return (
+                    <Link key={chip.id} href={getLocalizedPath(`/tools/${slug}`, locale)}
+                      onClick={() => trackToolClick(chip.id)}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 dark:bg-gray-900/60 hover:bg-white/20 border border-white/15 hover:border-white/30 text-white/90 hover:text-white text-xs font-semibold transition-all shadow-sm">
+                      <chip.icon className="h-3.5 w-3.5" />
+                      {chip.label}
+                    </Link>
+                  );
+                })}
               </div>
 
               {/* Call-to-Actions (CTAs) */}
@@ -596,10 +627,10 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
               {/* Trust Indicators */}
               <div className="flex flex-wrap justify-center gap-x-8 gap-y-3.5 pt-4 border-t border-white/10 dark:border-gray-900/50">
                 {[
-                  { label: 'No uploads' },
-                  { label: '100% Private' },
-                  { label: 'Free Forever' },
-                  { label: 'Browser Based' },
+                  { label: 'Browser-Based' },
+                  { label: 'No Installation' },
+                  { label: 'Fast Processing' },
+                  { label: 'Privacy Focused' },
                 ].map(item => (
                   <div key={item.label} className="flex items-center gap-2 text-white/70 text-xs font-medium">
                     <CheckCircle2 className="h-4 w-4 text-green-400 shrink-0" />
@@ -742,14 +773,11 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                       {desc}
                     </p>
 
-                    {/* Footer / Meta */}
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-50 dark:border-gray-700/50">
-                      <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${colors.bg} ${colors.text} uppercase tracking-wider`}>
-                        {t(`home.categories.${categoryKeys[tool.category]}`)}
-                      </span>
-                      <span className="text-xs font-bold text-[#E31E24] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                    {/* CTA Button */}
+                    <div className="w-full mt-auto pt-3 border-t border-gray-50 dark:border-gray-700/50">
+                      <button className="w-full py-2.5 px-4 rounded-xl bg-gray-50 dark:bg-gray-700 group-hover:bg-[#E31E24] text-gray-700 dark:text-gray-200 group-hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm">
                         Use Tool <ArrowRight className="h-3.5 w-3.5" />
-                      </span>
+                      </button>
                     </div>
                   </Link>
                 );
@@ -914,7 +942,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-16">
               <h2 id="trust-heading" className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
-                Your Files Never Leave Your Device
+                Your Files Stay Private
               </h2>
               <p className="text-white/60 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
                 We built PDFRunway on a privacy-first, serverless architecture. Local rendering, absolute security.
@@ -923,10 +951,10 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {[
-                { icon: Shield, title: 'Client-Side Only', desc: 'All processing happens in your browser using local WebAssembly modules. Zero server bandwidth required.', color: 'text-green-400 bg-green-400/10 border-green-500/20' },
-                { icon: Lock, title: 'No Server Uploads', desc: 'Files are never transmitted over the internet to any external server. They stay on your local disk at all times.', color: 'text-[#E31E24] bg-red-400/10 border-red-500/20' },
-                { icon: CheckCircle2, title: 'GDPR Compliant', desc: 'No user data tracking cookies, no server-side cache storage, no third-party processors. Native compliance by default.', color: 'text-blue-400 bg-blue-400/10 border-blue-500/20' },
-                { icon: KeyRound, title: 'Secure Encryption', desc: 'Configure military-grade AES-256 password security directly on-device using local JavaScript keys.', color: 'text-purple-400 bg-purple-400/10 border-purple-500/20' },
+                { icon: Shield, title: 'Browser-Based Processing', desc: 'All processing happens locally in your web browser. No plugins, desktop installations, or configurations are required to run conversions.', color: 'text-green-400 bg-green-400/10 border-green-500/20' },
+                { icon: Lock, title: 'No Unnecessary Uploads', desc: 'Documents never get transmitted over the internet to cloud infrastructure. Your private data remains safe on your device.', color: 'text-[#E31E24] bg-red-400/10 border-red-500/20' },
+                { icon: CheckCircle2, title: 'Security-First Approach', desc: 'Engineered around browser-based WebAssembly logic to ensure medical records, contract drafts, and invoices are secure from leaks.', color: 'text-blue-400 bg-blue-400/10 border-blue-500/20' },
+                { icon: KeyRound, title: 'Fast Processing', desc: 'Local execution eliminates files queue delays and network latency constraints. Operations process in milliseconds using local CPU resources.', color: 'text-purple-400 bg-purple-400/10 border-purple-500/20' },
               ].map(item => {
                 const Icon = item.icon;
                 return (
@@ -947,7 +975,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
         {/* ════════════════════════════════════════════════════════
             SEO ARTICLE CONTENT SECTION
         ════════════════════════════════════════════════════════ */}
-        <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-b border-gray-100 dark:border-gray-950" aria-labelledby="why-heading">
+        <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-b border-gray-100 dark:border-gray-955" aria-labelledby="why-heading">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               
@@ -955,8 +983,8 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                 <h2 id="why-heading" className="text-3xl sm:text-4xl font-extrabold text-[#1B2A4A] dark:text-white tracking-tight mb-4">
                   Why Choose PDFRunway?
                 </h2>
-                <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-                  The safest, fastest, and most comprehensive serverless utility suite for processing documents online.
+                <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+                  Managing digital documents efficiently is critical for modern business workflows, yet traditional utilities often come with high subscription costs or security vulnerabilities. PDFRunway solves these challenges by providing a premium, browser-based ecosystem of over 131+ free online PDF tools.
                 </p>
               </div>
 
@@ -968,9 +996,9 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <Shield className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Client-Side Browser-Based Processing</h3>
+                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Advanced PDF Editing and Markups</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      PDFRunway operates on a highly advanced, modern serverless architecture utilizing WebAssembly (WASM). Instead of transferring your documents over the network to external systems, our application downloads compact, highly optimized computational modules directly into your web browser. All file processing—from simple rotations to complex PDF formatting, digital signatures, and page conversions—runs locally using your device’s hardware. This browser-based sandbox ensures your processing speeds are limited only by your computer’s processor, not server queues or internet bandwidth constraints.
+                      PDF editing shouldn&apos;t require complex software installations or premium licenses. Our suite features a robust inline PDF editor allowing you to write text annotations, draw custom shapes (rectangles, circles, arrows), highlight paragraphs, and redact sensitive entries in real time. Because all visual assets and content streams are rendered locally via WebAssembly, adjustments are instantaneous. You can edit contracts, add feedback comments, and stamp seals with lag-free performance that handles large booklets with ease.
                     </p>
                   </div>
                 </div>
@@ -980,9 +1008,9 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <Lock className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">No File Uploads — Ever</h3>
+                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Lossless PDF Conversion &amp; Formatting</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      With conventional online PDF converters, user files are uploaded to cloud servers, processed on distant machines, and stored temporarily in databases. This flow poses severe data leak risks for confidential documents, tax forms, financial balance sheets, and legal contracts. PDFRunway completely eliminates this vulnerability. Since we perform all conversions locally, your documents never touch our hosting infrastructure. There is no cloud storage, no temporary file cache, and zero chance of server breaches exposing your personal data.
+                      High-quality document conversion requires preserving layout layouts, vector paths, and original fonts. PDFRunway provides professional-grade converters to translate documents between formats, including PDF to Word (DOCX), Excel (XLSX), PowerPoint (PPTX), and various image formats like JPG, PNG, WebP, SVG, and HEIC. The conversion modules process formatting structures directly inside the browser. This ensures that tables, header structures, and margins stay intact, saving you time spent correcting formatting errors.
                     </p>
                   </div>
                 </div>
@@ -992,9 +1020,9 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <Zap className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Lightning-Fast Conversion Speeds</h3>
+                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Adaptive PDF Compression &amp; Size Reduction</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      Traditional cloud document tools suffer from latency, upload congestion, and server load queues, forcing users to wait to download files. PDFRunway solves this by executing code in-browser via compiled C++ and Rust bindings. High-resolution conversions, large booklet formatting, and batch resizing processes occur in milliseconds. You no longer need to upload files, wait for distant cloud machines, and download the finished product. Everything is compiled and finalized directly on your desktop or phone, delivering an instantaneous and seamless workflow.
+                      Large files slow down email communications and exceed portal upload limits. PDFRunway offers smart PDF compression tools that reduce file sizes without sacrificing text clarity or visual quality. By optimizing embedded images, stripping obsolete metadata, and flattening layout layers on-device, you can shrink files by up to 80% in seconds. This local optimization maintains high-resolution readability for prints while ensuring compatibility with standard email attachment standards.
                     </p>
                   </div>
                 </div>
@@ -1004,9 +1032,9 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <Globe className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Works on All Devices and Browsers</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      PDFRunway is cross-platform by design. It requires no installation, browser plug-ins, or desktop installations. Whether you are running macOS, Windows, Linux, Android, iOS, or ChromeOS, the tools operate identically. The application is compatible with modern browsers including Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. This ensures you have access to a powerful, premium document editor on any laptop, tablet, or mobile phone, wherever your work takes you.
+                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Enterprise-Grade PDF Security and Redaction</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-405 leading-relaxed">
+                      Data security is a primary concern when handling financial logs, legal agreements, and corporate records. PDFRunway lets you restrict user access by setting AES-256 open passwords and permission constraints. You can disable editing, printing, or copying permissions to protect your intellectual property. Additionally, our sanitization tools wipe PieceInfo metadata and invisible XMP properties, securing your file catalog before public distribution.
                     </p>
                   </div>
                 </div>
@@ -1016,9 +1044,9 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <Settings className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Secure and Compliance-Ready PDF Tools</h3>
+                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">In-Browser OCR &amp; Structured Text Extraction</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      PDFRunway meets strict data compliance policies like GDPR and HIPAA naturally due to its serverless design. Because zero document bytes reach our systems, you retain full ownership and privacy rights automatically. The utility suite includes advanced data redaction filters, metadata strip tools, AES-256 PDF encryption lockers, and electronic signatures. This makes our site the ideal tool choice for corporate users, medical staff, law firms, and financial organizations handling extremely sensitive customer or patient information.
+                      Paper scans and photo-based documents are typically locked, making text indexing impossible. PDFRunway integrates client-side OCR (Optical Character Recognition) to extract editable text streams from scanned files. The system builds a searchable PDF with a structured text layer aligned over the image pixels. You can search, highlight, and copy text from physical documents directly, without sending private records to cloud engines.
                     </p>
                   </div>
                 </div>
@@ -1028,13 +1056,17 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <CheckCircle2 className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">100% Free Without Registration</h3>
+                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Privacy-First Architecture and GDPR Compliance</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      Most online services lure users in with free claims, only to restrict them with page limits, file size caps, watermarks, or subscription pop-ups. PDFRunway is free forever. There are no registration forms, credit cards, premium tiers, or limits on the size or quantity of files you process. We believe everyone deserves high-performance, private, and professional PDF utilities without paywalls or tracking scripts. Start your document conversion tasks immediately with zero hurdles.
+                      Unlike traditional cloud utilities, PDFRunway uses a serverless architecture where documents never leave your machine. Processing runs inside your web browser sandbox using compiled WebAssembly. This natural data enclosure ensures native compliance with regulations like GDPR, HIPAA, and corporate security guidelines. There are no temporary database caches, no log tracking, and no third-party processors—guaranteeing complete privacy.
                     </p>
                   </div>
                 </div>
 
+              </div>
+
+              <div className="text-center max-w-2xl mx-auto mb-16 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                PDFRunway represents a significant shift in web-based document utilities. By combining compiled C++ and Rust engines with standard browser frameworks, we offer a safe, fast, and feature-rich alternative to expensive software. Explore our 131+ free tools today to experience the speed, accessibility, and peace of mind of 100% private, local document processing.
               </div>
 
               {/* Accordion FAQ Grid */}
@@ -1045,11 +1077,14 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                   </h3>
                 </div>
                 {[
-                  { q: 'Is PDFRunway completely free to use?', a: `Yes. All 131+ tools on PDFRunway are completely free with no registration, no subscription, and no hidden fees. Every feature is available to every user directly in the browser.` },
-                  { q: 'Are my PDF files safe on PDFRunway?', a: 'Absolutely. PDFRunway uses client-side WebAssembly processing, meaning your files never leave your device. Nothing is uploaded to any server. Your documents stay 100% private.' },
-                  { q: 'Do I need to create an account to use PDFRunway?', a: 'No account or sign-up is required. Open PDFRunway, choose your tool, upload your file, and download the result — all without registration.' },
-                  { q: 'What file formats does PDFRunway support?', a: 'PDFRunway supports PDF, Word (DOC/DOCX), Excel (XLS/XLSX), PowerPoint (PPT/PPTX), JPG, PNG, WebP, BMP, TIFF, SVG, HEIC, TXT, RTF, EPUB, and many more.' },
-                  { q: 'Does PDFRunway work on mobile devices?', a: 'Yes. PDFRunway is fully responsive and works on all modern mobile browsers on iOS and Android devices, using localized hardware accelerators.' },
+                  { q: 'Is PDFRunway free?', a: 'Yes, PDFRunway is 100% free. You can use all 131+ PDF tools without paying, signing up, or experiencing watermark restrictions. Every feature is fully available to all users.' },
+                  { q: 'Are my PDF files secure?', a: 'Absolutely. PDFRunway processes all files client-side in your browser using WebAssembly. Your files are never uploaded to our servers, keeping your private data 100% secure.' },
+                  { q: 'Do I need to install software?', a: 'No installation is required. PDFRunway is an entirely browser-based application that works directly in Chrome, Firefox, Safari, Edge, or mobile browsers.' },
+                  { q: 'Can I convert PDF to Word?', a: 'Yes, you can convert PDF to Word (DOCX) files easily. Our converter runs fully in-browser, extracting text and tables while maintaining original formatting.' },
+                  { q: 'Can I merge PDF files online?', a: 'Yes, you can merge multiple PDF documents into a single consolidated file instantly, reordering pages as needed.' },
+                  { q: 'Does PDFRunway support OCR?', a: 'Yes. PDFRunway features browser-based OCR (Optical Character Recognition) to extract editable text layers from scanned PDFs or images.' },
+                  { q: 'Can I sign PDF documents online?', a: 'Yes. You can digitally draw, type, or upload your signature to place it securely onto any contract layout, completely offline in your browser.' },
+                  { q: 'Is PDFRunway mobile friendly?', a: 'Yes, PDFRunway is optimized for mobile-first responsiveness. It runs fast on any iPhone, iPad, or Android browser using localized hardware acceleration.' },
                 ].map(faq => (
                   <details key={faq.q} className="group px-6 py-4.5 cursor-pointer">
                     <summary className="flex items-center justify-between font-semibold text-sm sm:text-base text-[#1B2A4A] dark:text-white list-none gap-4">
@@ -1091,7 +1126,7 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
             {/* Blogs list */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {blogPosts.map(post => (
-                <Link key={post.slug} href={getLocalizedPath(`/tools/${post.slug}`, locale)}
+                <Link key={post.slug} href={getLocalizedPath(`/blog/${post.slug}`, locale)}
                   onClick={() => trackToolClick(post.slug)}
                   className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-150 dark:border-gray-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >

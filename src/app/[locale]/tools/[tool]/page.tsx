@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { getToolById, getAllTools } from '@/config/tools';
+import { getToolById, getToolBySlug, getAllTools } from '@/config/tools';
 import { getToolContent, type Locale } from '@/config/tool-content';
 import { ToolPage } from '@/components/tools/ToolPage';
 import { MergePDFTool } from '@/components/tools/merge';
@@ -166,7 +166,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ToolPageParams): Promise<Metadata> {
   const { locale: localeStr, tool: toolSlug } = await params;
   const locale = localeStr as Locale;
-  const tool = getToolById(toolSlug);
+  const tool = getToolBySlug(toolSlug) || getToolById(toolSlug);
   const t = await getTranslations({ locale, namespace: 'errors' });
 
   if (!tool) {
@@ -205,7 +205,7 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
   const t = await getTranslations();
 
   // Get tool data
-  const tool = getToolById(toolSlug);
+  const tool = getToolBySlug(toolSlug) || getToolById(toolSlug);
 
   if (!tool) {
     notFound();

@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
 
   // Popular Tools Column links
   const popularToolsLinks = [
-    { href: getLocalizedPath('/tools/pdf-to-docx', locale), label: 'PDF to Word' },
+    { href: getLocalizedPath('/tools/pdf-to-word', locale), label: 'PDF to Word' },
     { href: getLocalizedPath('/tools/word-to-pdf', locale), label: 'Word to PDF' },
     { href: getLocalizedPath('/tools/pdf-to-jpg', locale), label: 'PDF to JPG' },
     { href: getLocalizedPath('/tools/webp-to-pdf', locale), label: 'WebP to PDF' },

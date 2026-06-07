@@ -6,7 +6,7 @@ import { localeConfig, type Locale, locales } from '@/lib/i18n/config';
 import { generateHomeMetadata } from '@/lib/seo';
 import { fontVariables } from '@/lib/fonts';
 import { SkipLink } from '@/components/common/SkipLink';
-import { getToolById } from '@/config/tools';
+import { getToolById, getToolBySlug } from '@/config/tools';
 import '@/app/globals.css';
 
 export function generateStaticParams() {
@@ -61,7 +61,7 @@ export default async function LocaleLayout({
   const isLocale = locales.includes(locale as Locale);
   
   // If it's not a valid locale, verify it is a valid tool slug
-  if (!isLocale && !getToolById(locale)) {
+  if (!isLocale && !getToolBySlug(locale) && !getToolById(locale)) {
     notFound();
   }
 

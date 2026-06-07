@@ -657,7 +657,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'pdf-to-docx',
-    slug: 'pdf-to-docx',
+    slug: 'pdf-to-word',
     icon: 'file-text',
     category: 'convert-from-pdf',
     acceptedFormats: ['.pdf'],
