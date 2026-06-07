@@ -924,98 +924,151 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
         {/* ════════════════════════════════════════════════════════
             SEO ARTICLE CONTENT SECTION
         ════════════════════════════════════════════════════════ */}
-        <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-b border-gray-100 dark:border-gray-955" aria-labelledby="why-heading">
+        <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-b border-gray-100 dark:border-gray-800/60" aria-labelledby="why-heading">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-5xl mx-auto">
               
               <div className="text-center mb-16">
                 <h2 id="why-heading" className="text-3xl sm:text-4xl font-extrabold text-[#1B2A4A] dark:text-white tracking-tight mb-4">
                   Why Choose PDFRunway?
                 </h2>
-                <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-                  Managing digital documents efficiently is critical for modern business workflows, yet traditional utilities often come with high subscription costs or security vulnerabilities. PDFRunway solves these challenges by providing a premium, browser-based ecosystem of over 131+ free online PDF tools.
+                <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
+                  In a digital landscape where document management is a daily necessity, finding reliable, secure, and fast tools can be surprisingly difficult. Many online services force users to upload sensitive files to remote servers, risking data leaks, while desktop applications require slow downloads and expensive subscriptions. PDFRunway was built to solve these problems by offering a complete suite of professional-grade online PDF tools that run entirely within your web browser. By executing file processing locally on your device, PDFRunway combines the speed of desktop software with the convenience of a web application. Whether you need to edit a contract, compress a large presentation, or convert files between formats, PDFRunway provides a seamless, private, and zero-cost solution.
                 </p>
               </div>
 
-              {/* 600+ Words SEO Content Grid */}
+              {/* Grid of H3 Sections */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 text-left">
                 
-                <div className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400 border border-green-100 dark:border-green-900/30 flex items-center justify-center mt-1 shadow-sm">
-                    <Shield className="h-5.5 w-5.5" />
+                {/* Complete PDF Toolkit */}
+                <div className="bg-white dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex gap-5 hover:border-red-500/20 dark:hover:border-red-500/20 transition-all duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/20 text-[#E31E24] border border-red-100 dark:border-red-900/30 flex items-center justify-center shadow-sm">
+                    <FolderOpen className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Advanced PDF Editing and Markups</h3>
+                    <h3 className="text-lg font-bold text-[#1B2A4A] dark:text-white mb-3">Complete PDF Toolkit</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
+                      A modern workflow demands a versatile set of tools to handle diverse document tasks without switching platforms. PDFRunway serves as a centralized hub, housing a comprehensive suite of utilities that allow you to modify, organize, and secure your files effortlessly.
+                    </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      PDF editing shouldn&apos;t require complex software installations or premium licenses. Our suite features a robust inline PDF editor allowing you to write text annotations, draw custom shapes (rectangles, circles, arrows), highlight paragraphs, and redact sensitive entries in real time. Because all visual assets and content streams are rendered locally via WebAssembly, adjustments are instantaneous. You can edit contracts, add feedback comments, and stamp seals with lag-free performance that handles large booklets with ease.
+                      Our dynamic <Link href={getLocalizedPath('/tools/edit-pdf', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">PDF Editor</Link> lets you annotate documents directly in your browser. You can highlight text, add notes, draw shapes, and redact sensitive details in real time. For organizing pages, the <Link href={getLocalizedPath('/tools/merge-pdf', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">Merge PDF</Link> tool allows you to combine multiple documents into a single consolidated file, while the Split PDF tool makes it easy to extract specific page ranges or divide files into separate sections. If file size is an issue, our <Link href={getLocalizedPath('/tools/compress-pdf', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">Compress PDF</Link> tool optimizes embedded images and fonts to reduce file sizes by up to 80% without visible quality loss. For paper-based workflows, our <Link href={getLocalizedPath('/tools/ocr-pdf', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">OCR PDF</Link> tool uses local character recognition to make scanned documents searchable and selectable, and the <Link href={getLocalizedPath('/tools/sign-pdf', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">Sign PDF</Link> tool lets you draw, type, or upload your signature to sign agreements securely on-device.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/20 text-[#E31E24] border border-red-100 dark:border-red-900/30 flex items-center justify-center mt-1 shadow-sm">
-                    <Lock className="h-5.5 w-5.5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Lossless PDF Conversion &amp; Formatting</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      High-quality document conversion requires preserving layout layouts, vector paths, and original fonts. PDFRunway provides professional-grade converters to translate documents between formats, including PDF to Word (DOCX), Excel (XLSX), PowerPoint (PPTX), and various image formats like JPG, PNG, WebP, SVG, and HEIC. The conversion modules process formatting structures directly inside the browser. This ensures that tables, header structures, and margins stay intact, saving you time spent correcting formatting errors.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-900/30 flex items-center justify-center mt-1 shadow-sm">
+                {/* Fast PDF Conversion Tools */}
+                <div className="bg-white dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex gap-5 hover:border-red-500/20 dark:hover:border-red-500/20 transition-all duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 flex items-center justify-center shadow-sm">
                     <Zap className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Adaptive PDF Compression &amp; Size Reduction</h3>
+                    <h3 className="text-lg font-bold text-[#1B2A4A] dark:text-white mb-3">Fast PDF Conversion Tools</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
+                      Format compatibility should never stand in the way of productivity. PDFRunway features advanced file converters that handle conversions to and from the PDF format with high layout fidelity.
+                    </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      Large files slow down email communications and exceed portal upload limits. PDFRunway offers smart PDF compression tools that reduce file sizes without sacrificing text clarity or visual quality. By optimizing embedded images, stripping obsolete metadata, and flattening layout layers on-device, you can shrink files by up to 80% in seconds. This local optimization maintains high-resolution readability for prints while ensuring compatibility with standard email attachment standards.
+                      When you need to edit content, our <Link href={getLocalizedPath('/tools/pdf-to-word', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">PDF to Word</Link> converter extracts text layers and tables, generating a fully editable DOCX document that preserves original fonts and margins. Conversely, our <Link href={getLocalizedPath('/tools/word-to-pdf', locale)} className="text-[#E31E24] hover:underline font-semibold text-wrap break-all">Word to PDF</Link> converter turns DOCX drafts into standardized, read-only PDF sheets that look identical on any device. We also support a wide range of graphic and data formats. You can convert JPG to PDF to compile images into single reports, or export pages using PDF to JPG to save slides as individual images. For spreadsheets and slide decks, our Excel to PDF and PowerPoint to PDF tools ensure your data tables and presentation graphics render perfectly, preserving cells, column widths, transitions, and layout dimensions automatically.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 flex items-center justify-center mt-1 shadow-sm">
-                    <Globe className="h-5.5 w-5.5" />
+                {/* Privacy First PDF Processing */}
+                <div className="bg-white dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex gap-5 hover:border-red-500/20 dark:hover:border-red-500/20 transition-all duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400 border border-green-100 dark:border-green-900/30 flex items-center justify-center shadow-sm">
+                    <ShieldCheck className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Enterprise-Grade PDF Security and Redaction</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-405 leading-relaxed">
-                      Data security is a primary concern when handling financial logs, legal agreements, and corporate records. PDFRunway lets you restrict user access by setting AES-256 open passwords and permission constraints. You can disable editing, printing, or copying permissions to protect your intellectual property. Additionally, our sanitization tools wipe PieceInfo metadata and invisible XMP properties, securing your file catalog before public distribution.
+                    <h3 className="text-lg font-bold text-[#1B2A4A] dark:text-white mb-3">Privacy First PDF Processing</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
+                      Traditional online document utilities rely on cloud-based servers to process your files, which means your personal information, financial data, and legal contracts are sent over the internet to third-party databases. PDFRunway is built on a fundamentally different philosophy: your files belong to you, and they should never leave your control.
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                      Our platform uses WebAssembly (WASM) and client-side JavaScript to run all document operations directly inside your browser sandbox. When you convert, compress, or edit a file, the processing occurs locally using your computer’s CPU. This architecture guarantees that no files are uploaded to our servers, eliminating the risk of data intercepts or server-side leaks. By removing server storage entirely, PDFRunway provides built-in compliance with strict privacy standards, including GDPR, HIPAA, and corporate data protection policies, giving you total peace of mind.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-900/30 flex items-center justify-center mt-1 shadow-sm">
-                    <Settings className="h-5.5 w-5.5" />
+                {/* Designed for Students, Professionals and Businesses */}
+                <div className="bg-white dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex gap-5 hover:border-red-500/20 dark:hover:border-red-500/20 transition-all duration-300">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-900/30 flex items-center justify-center shadow-sm">
+                    <Users className="h-5.5 w-5.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">In-Browser OCR &amp; Structured Text Extraction</h3>
+                    <h3 className="text-lg font-bold text-[#1B2A4A] dark:text-white mb-3">Designed for Students, Professionals and Businesses</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
+                      Document management needs vary, which is why PDFRunway is built to accommodate users across all fields, providing intuitive tools that simplify complex tasks for everyone.
+                    </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      Paper scans and photo-based documents are typically locked, making text indexing impossible. PDFRunway integrates client-side OCR (Optical Character Recognition) to extract editable text streams from scanned files. The system builds a searchable PDF with a structured text layer aligned over the image pixels. You can search, highlight, and copy text from physical documents directly, without sending private records to cloud engines.
+                      For students, PDFRunway makes it easy to compile research papers, merge study guides, and compress large textbooks for submission. Teachers can quickly create worksheets, split exam papers, and annotate PDFs with feedback. Freelancers benefit from the ability to sign client agreements and organize receipts on the fly without paying for software licenses. Small businesses can optimize their workflows by converting invoices, securing client data with passwords, and standardizing their marketing materials. In corporate environments, teams can safely process confidential documents locally, ensuring absolute security for sensitive legal contracts, financial sheets, and HR records without needing IT department approvals for software installations.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950/20 text-teal-600 dark:text-teal-400 border border-teal-100 dark:border-teal-900/30 flex items-center justify-center mt-1 shadow-sm">
-                    <CheckCircle2 className="h-5.5 w-5.5" />
+                {/* Why PDFRunway is Different */}
+                <div className="bg-white dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex gap-5 hover:border-red-500/20 dark:hover:border-red-500/20 transition-all duration-300 md:col-span-2">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-900/30 flex items-center justify-center shadow-sm">
+                    <Star className="h-5.5 w-5.5 fill-amber-400/20 text-amber-500" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1B2A4A] dark:text-white mb-2.5 text-base">Privacy-First Architecture and GDPR Compliance</h3>
+                    <h3 className="text-lg font-bold text-[#1B2A4A] dark:text-white mb-3">Why PDFRunway is Different</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
+                      While the internet is full of online document tools, PDFRunway stands out by prioritizing user privacy, speed, and design aesthetics. Unlike other platforms, PDFRunway requires no software installation or registration. You don't have to download bulky desktop apps, create accounts, or deal with restricted daily limits.
+                    </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      Unlike traditional cloud utilities, PDFRunway uses a serverless architecture where documents never leave your machine. Processing runs inside your web browser sandbox using compiled WebAssembly. This natural data enclosure ensures native compliance with regulations like GDPR, HIPAA, and corporate security guidelines. There are no temporary database caches, no log tracking, and no third-party processors—guaranteeing complete privacy.
+                      Our modern, clean interface is optimized for speed and simplicity, letting you get your work done in a few clicks. Additionally, our extensive collection of PDF tools is completely free. We do not hide features behind paywalls or add watermarks to your finished documents. By combining powerful C++ libraries compiled to WebAssembly with high-quality styling, we deliver professional-grade processing that is fast, accessible, and completely private.
                     </p>
                   </div>
                 </div>
 
               </div>
 
-              <div className="text-center max-w-2xl mx-auto mb-16 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                PDFRunway represents a significant shift in web-based document utilities. By combining compiled C++ and Rust engines with standard browser frameworks, we offer a safe, fast, and feature-rich alternative to expensive software. Explore our 131+ free tools today to experience the speed, accessibility, and peace of mind of 100% private, local document processing.
+              {/* Popular PDF Tasks & CTA Container */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                
+                {/* Popular PDF Tasks */}
+                <div className="bg-white dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-150 dark:border-gray-800 shadow-sm md:col-span-2">
+                  <h3 className="text-lg font-bold text-[#1B2A4A] dark:text-white mb-5 flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-[#E31E24]" /> Popular PDF Tasks
+                  </h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5 text-sm">
+                    {[
+                      { label: 'Merge PDF Files', path: '/tools/merge-pdf', desc: 'Combine multiple files into one.' },
+                      { label: 'Compress PDF Documents', path: '/tools/compress-pdf', desc: 'Shrink file size without losing quality.' },
+                      { label: 'Convert PDF to Word', path: '/tools/pdf-to-word', desc: 'Make PDFs fully editable in Word.' },
+                      { label: 'Convert Word to PDF', path: '/tools/word-to-pdf', desc: 'Turn Word documents into PDFs.' },
+                      { label: 'OCR Scanned PDFs', path: '/tools/ocr-pdf', desc: 'Extract editable text from scans.' },
+                      { label: 'Sign PDF Online', path: '/tools/sign-pdf', desc: 'Add electronic signatures instantly.' },
+                      { label: 'Edit PDF Files', path: '/tools/edit-pdf', desc: 'Add text, shapes, and markups.' },
+                      { label: 'Protect PDF Documents', path: '/tools/secure-pdf', desc: 'Lock PDFs with secure passwords.' },
+                    ].map((task) => (
+                      <li key={task.label} className="flex items-start gap-2.5">
+                        <Check className="h-4 w-4 text-green-500 mt-1 shrink-0" />
+                        <div>
+                          <Link href={getLocalizedPath(task.path, locale)} className="font-semibold text-gray-950 dark:text-white hover:text-[#E31E24] hover:underline transition-colors text-wrap break-all">
+                            {task.label}
+                          </Link>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{task.desc}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Start Using PDFRunway Today (CTA) */}
+                <div className="bg-gradient-to-br from-[#1B2A4A] to-[#0D162A] dark:from-gray-900 dark:to-gray-950 p-8 rounded-3xl border border-white/5 shadow-xl flex flex-col justify-between text-left text-white relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 -mt-6 -mr-6 w-24 h-24 bg-red-500/10 rounded-full blur-2xl group-hover:bg-red-500/20 transition-all duration-500" />
+                  <div>
+                    <h3 className="text-xl font-bold mb-4">Start Using PDFRunway Today</h3>
+                    <p className="text-xs text-gray-300 leading-relaxed mb-6">
+                      Ready to experience the future of secure, local document management? Take control of your workflow with our suite of fast, browser-based tools. No sign-ups, no fees, and no file uploads. Just choose the tool you need, drag your files into the workspace, and let PDFRunway do the work in seconds.
+                    </p>
+                  </div>
+                  <Link href={getLocalizedPath('/tools', locale)} className="inline-flex items-center justify-between px-6 py-4 bg-[#E31E24] hover:bg-red-700 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-red-500/20 active:scale-95 group/btn">
+                    <span>Explore All Tools</span>
+                    <ArrowRight className="h-4.5 w-4.5 group-hover/btn:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+
               </div>
 
               {/* Accordion FAQ Grid */}

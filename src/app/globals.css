@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* PDFRunway Design System - CSS Variables for Theming */
 :root {
   /* Primary Colors - PDFRunway Red */
