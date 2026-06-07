@@ -42,26 +42,52 @@ export const toolContentEn: Record<string, ToolContent> = {
   'merge-pdf': {
     title: 'Merge PDF',
     metaDescription: 'Combine multiple PDF files into one document. Free online PDF merger with drag-and-drop reordering.',
-    keywords: ['merge pdf', 'combine pdf', 'join pdf', 'pdf merger', 'concatenate pdf'],
+    keywords: ['merge pdf', 'merge pdf online', 'combine pdf files', 'free pdf merger', 'join pdf files', 'pdf merger', 'concatenate pdf'],
     description: `
-      <p>Merge PDF allows you to combine multiple PDF documents into a single file quickly and easily. Whether you're consolidating reports, combining scanned documents, or assembling a presentation, this tool makes the process seamless.</p>
-      <p>Simply upload your files, arrange them in your desired order using drag-and-drop, and merge them into one cohesive document. The tool preserves the quality of your original files and can optionally maintain bookmarks from each source document.</p>
-      <p>All merging happens locally in your browser, ensuring complete privacy for your sensitive documents.</p>
+      <p>In today's digital environment, documents are the core of communication, transactions, and business operations. However, managing dozens of scattered documents can quickly lead to inbox clutter, misplaced attachments, and inefficient workflows. The ability to <strong>merge PDF</strong> files into a single, cohesive document is a vital skill for anyone looking to organize invoices, student assignments, tax documents, or project proposals. PDFRunway provides a secure, professional, and fast solution designed to help you <strong>combine PDF files</strong> instantly in your browser without compromising on layout fidelity, formatting, or document safety.</p>
+      <p>Unlike traditional tools that require software installations, registration, or hidden fees, our <strong>free PDF merger</strong> is completely browser-based. This means you can <strong>join PDF files</strong> on any operating system, including Windows, macOS, Linux, iOS, and Android. Since PDFRunway leverages advanced WebAssembly technology, the document combination happens directly on your machine. This eliminates the long wait times associated with uploading large documents to external cloud systems and downloading the resulting files.</p>
+      <h3>The Privacy Advantage: Client-Side PDF Merging</h3>
+      <p>Most online PDF utilities require you to upload your files to their remote servers. Once uploaded, your sensitive files are processed and stored in the cloud, posing serious data security risks. For businesses handling confidential client records, medical sheets, legal cases, or financial statements, uploading data to a third-party server can violate compliance policies like GDPR and HIPAA.</p>
+      <p>PDFRunway is engineered differently. Our tools operate entirely on the client side, meaning your files never leave your computer. The WebAssembly execution container processes and compiles the documents locally in your browser's memory sandbox. This absolute data isolation ensures that your confidential documents remain 100% private and protected from third-party interception, server-side data leaks, or unauthorized access.</p>
+      <h3>Maintain Vector Layouts, Quality, and Bookmarks</h3>
+      <p>A common issue with standard tools that <strong>merge PDF online</strong> is the degradation of quality. Many free services rasterize the pages—effectively turning high-quality vector text and layout graphics into low-resolution images. This makes the text blurry, prevents you from selecting or searching keywords, and inflates the final file size.</p>
+      <p>PDFRunway's C++ document rendering core operates directly on the underlying PDF syntax tree. When you <strong>combine PDF files</strong> with our platform, the original document structures, vector text paths, image resolutions, and color spaces are preserved with 100% fidelity. Furthermore, if your source documents contain internal outline markers or table of content indexes, our engine stitches them into a unified outline structure. This ensures that the final consolidated PDF maintains easy, clickable navigation across all chapters and sections.</p>
+      <h3>Best Practices for a Successful PDF Merge</h3>
+      <p>To ensure a smooth, error-free merging process when you <strong>join PDF files</strong>, it is helpful to follow these standard guidelines:</p>
+      <ul>
+        <li><strong>Check for Permissions:</strong> If any of your files are password-protected, the local rendering engine won't be able to access the document tree. Use our <a href="/tools/decrypt-pdf">Decrypt PDF</a> tool to remove security restrictions before merging.</li>
+        <li><strong>Standardize Page Sizes:</strong> If you are merging different page formats (like merging letter-sized cover sheets with A4 slides or landscape charts), use our <a href="/tools/pdf-page-resizer-uniform">Uniform Page Resizer</a> to keep the layout clean and visually uniform.</li>
+        <li><strong>Compress for Sharing:</strong> Merging several large documents can result in a bulky output. If you plan to email the resulting file, pass it through our <a href="/tools/compress-pdf">Compress PDF</a> tool to reduce its file size without losing text sharpness.</li>
+      </ul>
+      <h3>A Complete PDF Ecosystem at Your Fingertips</h3>
+      <p>PDFRunway isn't just a simple tool to <strong>combine PDF files</strong>; it's a comprehensive document management system. If you need to perform other adjustments on your files, our suite of free online utilities includes:</p>
+      <ul>
+        <li><a href="/tools/split-pdf">Split PDF</a>: Separate pages from a large file into individual documents.</li>
+        <li><a href="/tools/word-to-pdf">Word to PDF</a> and <a href="/tools/pdf-to-word">PDF to Word</a>: Convert files back and forth between Microsoft Word and PDF without losing style templates.</li>
+        <li><a href="/tools/jpg-to-pdf">JPG to PDF</a>: Turn images, receipts, and scans into clean PDF sheets.</li>
+        <li><a href="/tools/ocr-pdf">OCR PDF</a>: Recognize text from scans to make them fully searchable and editable.</li>
+        <li><a href="/tools/delete-pages">Delete Pages</a>: Strip unwanted pages or sheets from your documents in a single click.</li>
+        <li><a href="/tools/rotate-custom">Rotate Custom</a>: Correct skewed pages or landscape sheets to their correct upright orientation.</li>
+      </ul>
     `,
     howToUse: [
-      { step: 1, title: 'Upload PDF Files', description: 'Drag and drop multiple PDF files into the upload area, or click to select files from your device.' },
-      { step: 2, title: 'Arrange Order', description: 'Drag and drop the file thumbnails to arrange them in your desired order.' },
-      { step: 3, title: 'Merge and Download', description: 'Click the Merge button to combine all files, then download your merged PDF.' },
+      { step: 1, title: 'Upload Your PDF Files', description: 'Drag and drop up to 100 PDF files into the active upload box, or click the area to browse and select files from your computer or mobile device.' },
+      { step: 2, title: 'Reorder and Organize Pages', description: 'Use the visual drag-and-drop workspace cards to arrange the documents in the exact order you want them merged. You can also delete files or add more to the queue.' },
+      { step: 3, title: 'Choose Outline Options', description: 'Decide if you want the merging engine to stitch and preserve the existing outline bookmarks, creating a unified interactive table of contents.' },
+      { step: 4, title: 'Merge and Download', description: 'Click the "Merge PDF" button to begin processing. The WebAssembly compiler will combine your files in milliseconds, prompting an instant download.' },
     ],
     useCases: [
-      { title: 'Combine Reports', description: 'Merge monthly or quarterly reports into a single annual document for easier distribution and archiving.', icon: 'file-text' },
-      { title: 'Assemble Portfolios', description: 'Combine multiple project documents, certificates, or work samples into a professional portfolio.', icon: 'briefcase' },
-      { title: 'Consolidate Invoices', description: 'Merge multiple invoices or receipts into one document for accounting and record-keeping purposes.', icon: 'receipt' },
+      { title: 'Business Reports & Appended Data', description: 'Merge quarterly financial sheets, executive summaries, and index tables into a single report for easy sharing with stakeholders.', icon: 'file-text' },
+      { title: 'Academic Portfolios & Assignments', description: 'Combine thesis essays, source lists, charts, and scanned homework sheets into one organized, structured document for submission.', icon: 'book-open' },
+      { title: 'Legal Dossiers & Chronological Case Files', description: 'Compile evidence, legal agreements, court affidavits, and letters into a single chronological archive file.', icon: 'briefcase' },
+      { title: 'Accounting Receipts & Monthly Invoices', description: 'Assemble scattered receipts, scanned expense reports, and monthly client invoices into a neat tax archive.', icon: 'receipt' },
     ],
     faq: [
-      { question: 'How many PDFs can I merge?', answer: 'You can merge up to 100 PDF files at once, with a total combined size of up to 500MB.' },
-      { question: 'Will the merged PDF maintain the original quality?', answer: 'Yes, the merging process preserves the original quality of all documents without any compression or quality loss.' },
-      { question: 'Can I merge password-protected PDFs?', answer: 'Password-protected PDFs need to be decrypted first. Use our Decrypt PDF tool to remove the password before merging.' },
+      { question: 'Is it safe to merge confidential documents on PDFRunway?', answer: 'Absolutely. PDFRunway uses client-side WebAssembly to process all documents. This means that when you merge PDF files, the action happens entirely within your web browser\'s memory sandbox. Your files are never uploaded to our servers or stored in any cloud, guaranteeing complete security and compliance with strict data privacy regulations like GDPR, CCPA, and HIPAA.' },
+      { question: 'Will the merged PDF lose text sharpness or image quality?', answer: 'No. Unlike tools that rasterize pages, PDFRunway operates directly on the document structure and vector paths. When you combine PDF files, the original fonts, vector geometries, image resolutions, and metadata are preserved exactly. The output document retains 100% of the original quality, making text easy to select and search.' },
+      { question: 'Can I combine password-protected or encrypted PDF documents?', answer: 'If your PDF files are secured with a password or have restrictions on printing/modifying, you must decrypt them first before they can be merged. You can use our secure local Decrypt PDF tool to remove the password restrictions on your device, and then upload them to the free PDF merger queue.' },
+      { question: 'Is there a limit on the number of files or pages I can combine?', answer: 'You can upload and merge up to 100 PDF files at the same time, with a total file size of up to 500MB. Our engine does not impose any arbitrary page limits. You can merge documents containing thousands of pages, as long as your local device has enough RAM to process the files in the browser.' },
+      { question: 'What should I do if the merged PDF file size is too large for email?', answer: 'If the combined document is too large to send via email or upload to online portals, you can easily compress it. Simply load the merged document into our Compress PDF tool, which will optimize the images and metadata locally to reduce the file size while maintaining excellent text readability.' },
     ],
   },
 

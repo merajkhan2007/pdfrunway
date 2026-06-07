@@ -16,6 +16,7 @@ import { Footer } from '@/components/layout/Footer';
 import { getAllTools, getToolsByCategory, getPopularTools } from '@/config/tools';
 import { type Locale, getLocalizedPath } from '@/lib/i18n/config';
 import { type ToolCategory } from '@/types/tool';
+import { HOMEPAGE_FAQS } from '@/config/homepage-faqs';
 
 interface HomePageClientProps {
   locale: Locale;
@@ -258,144 +259,9 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
   const selectedRecTool = allTools.find(t => t.id === selectedRec.id);
   const recColors = selectedRecTool ? categoryColors[selectedRecTool.category] : categoryColors['organize-manage'];
 
-  /* ── SEO JSON-LD Schemas ── */
-  const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    'name': 'PDFRunway',
-    'url': locale === 'en' ? 'https://pdfrunway.com' : `https://pdfrunway.com/${locale}`,
-    'logo': 'https://pdfrunway.com/images/pdfrunway.png',
-    'description': 'Free, secure, browser-based PDF tools that run 100% client-side.',
-    'sameAs': [
-      'https://github.com/PDFRunway',
-      'https://x.com/PDFRunway'
-    ]
-  };
-
-  const websiteSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    'name': 'PDFRunway',
-    'url': locale === 'en' ? 'https://pdfrunway.com' : `https://pdfrunway.com/${locale}`,
-    'potentialAction': {
-      '@type': 'SearchAction',
-      'target': locale === 'en' ? 'https://pdfrunway.com/tools?search={search_term_string}' : `https://pdfrunway.com/${locale}/tools?search={search_term_string}`,
-      'query-input': 'required name=search_term_string'
-    }
-  };
-
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    'itemListElement': [
-      {
-        '@type': 'ListItem',
-        'position': 1,
-        'name': 'Home',
-        'item': locale === 'en' ? 'https://pdfrunway.com' : `https://pdfrunway.com/${locale}`
-      }
-    ]
-  };
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    'mainEntity': [
-      {
-        '@type': 'Question',
-        'name': 'Is PDFRunway free?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Yes, PDFRunway is 100% free. You can use all 131+ PDF tools without paying, signing up, or experiencing watermark restrictions. Every feature is fully available to all users.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Are my PDF files secure?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Absolutely. PDFRunway processes all files client-side in your browser using WebAssembly. Your files are never uploaded to our servers, keeping your private data 100% secure.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Do I need to install software?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'No installation is required. PDFRunway is an entirely browser-based application that works directly in Chrome, Firefox, Safari, Edge, or mobile browsers.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Can I convert PDF to Word?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Yes, you can convert PDF to Word (DOCX) files easily. Our converter runs fully in-browser, extracting text and tables while maintaining original formatting.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Can I merge PDF files online?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Yes, you can merge multiple PDF documents into a single consolidated file instantly, reordering pages as needed.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Does PDFRunway support OCR?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Yes. PDFRunway features browser-based OCR (Optical Character Recognition) to extract editable text layers from scanned PDFs or images.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Can I sign PDF documents online?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Yes. You can digitally draw, type, or upload your signature to place it securely onto any contract layout, completely offline in your browser.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'Is PDFRunway mobile friendly?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Yes, PDFRunway is optimized for mobile-first responsiveness. It runs fast on any iPhone, iPad, or Android browser using localized hardware acceleration.'
-        }
-      }
-    ]
-  };
-
-  const toolSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    'name': 'PDFRunway Free PDF Tools Suite',
-    'operatingSystem': 'Windows, macOS, Linux, iOS, Android',
-    'applicationCategory': 'BusinessApplication, UtilityApplication',
-    'offers': {
-      '@type': 'Offer',
-      'price': '0',
-      'priceCurrency': 'USD'
-    },
-    'featureList': 'Merge PDF, Compress PDF, PDF to Word, OCR PDF, Edit PDF, Sign PDF, Encrypt PDF'
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 transition-colors duration-300">
       
-      {/* Dynamic SEO schemas */}
-      {mounted && (
-        <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }} />
-        </>
-      )}
-
       <Header locale={locale} />
 
       <main id="main-content" className="flex-1" tabIndex={-1}>
@@ -1107,22 +973,13 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
                     <Users className="h-5 w-5 text-[#E31E24]" /> Frequently Asked Questions
                   </h3>
                 </div>
-                {[
-                  { q: 'Is PDFRunway free?', a: 'Yes, PDFRunway is 100% free. You can use all 131+ PDF tools without paying, signing up, or experiencing watermark restrictions. Every feature is fully available to all users.' },
-                  { q: 'Are my PDF files secure?', a: 'Absolutely. PDFRunway processes all files client-side in your browser using WebAssembly. Your files are never uploaded to our servers, keeping your private data 100% secure.' },
-                  { q: 'Do I need to install software?', a: 'No installation is required. PDFRunway is an entirely browser-based application that works directly in Chrome, Firefox, Safari, Edge, or mobile browsers.' },
-                  { q: 'Can I convert PDF to Word?', a: 'Yes, you can convert PDF to Word (DOCX) files easily. Our converter runs fully in-browser, extracting text and tables while maintaining original formatting.' },
-                  { q: 'Can I merge PDF files online?', a: 'Yes, you can merge multiple PDF documents into a single consolidated file instantly, reordering pages as needed.' },
-                  { q: 'Does PDFRunway support OCR?', a: 'Yes. PDFRunway features browser-based OCR (Optical Character Recognition) to extract editable text layers from scanned PDFs or images.' },
-                  { q: 'Can I sign PDF documents online?', a: 'Yes. You can digitally draw, type, or upload your signature to place it securely onto any contract layout, completely offline in your browser.' },
-                  { q: 'Is PDFRunway mobile friendly?', a: 'Yes, PDFRunway is optimized for mobile-first responsiveness. It runs fast on any iPhone, iPad, or Android browser using localized hardware acceleration.' },
-                ].map(faq => (
-                  <details key={faq.q} className="group px-6 py-4.5 cursor-pointer">
+                {HOMEPAGE_FAQS.map(faq => (
+                  <details key={faq.question} className="group px-6 py-4.5 cursor-pointer">
                     <summary className="flex items-center justify-between font-semibold text-sm sm:text-base text-[#1B2A4A] dark:text-white list-none gap-4">
-                      {faq.q}
+                      {faq.question}
                       <ChevronRight className="h-4.5 w-4.5 text-gray-400 group-open:rotate-90 transition-transform shrink-0" />
                     </summary>
-                    <p className="mt-3.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed cursor-text">{faq.a}</p>
+                    <p className="mt-3.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed cursor-text">{faq.answer}</p>
                   </details>
                 ))}
               </div>

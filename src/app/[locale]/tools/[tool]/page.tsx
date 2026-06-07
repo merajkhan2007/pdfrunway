@@ -131,7 +131,9 @@ import {
   generateFAQPageSchema,
   generateHowToSchema,
   generateWebPageSchema,
-  generateBreadcrumbSchema
+  generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebSiteSchema
 } from '@/lib/seo/structured-data';
 import type { Metadata } from 'next';
 
@@ -219,7 +221,9 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
   }
 
   // Generate structured data
-  const toolStructuredData = generateSoftwareApplicationSchema(tool, content, locale);
+  const toolStructuredData = generateSoftwareApplicationSchema(tool, content, locale as Locale);
+  const organizationStructuredData = generateOrganizationSchema();
+  const websiteStructuredData = generateWebSiteSchema(locale as Locale);
   const faqStructuredData = content.faq && content.faq.length > 0
     ? generateFAQPageSchema(content.faq)
     : null;
@@ -533,6 +537,8 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
       <JsonLd data={breadcrumbStructuredData} />
       {faqStructuredData && <JsonLd data={faqStructuredData} />}
       {howToStructuredData && <JsonLd data={howToStructuredData} />}
+      <JsonLd data={organizationStructuredData} />
+      <JsonLd data={websiteStructuredData} />
 
       {/* Tool Page */}
       <ToolPage

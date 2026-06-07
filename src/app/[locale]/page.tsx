@@ -3,6 +3,14 @@ import { locales, type Locale } from '@/lib/i18n/config';
 import { getAllTools } from '@/config/tools';
 import { getToolContent } from '@/config/tool-content';
 import HomePageClient from './HomePageClient';
+import { JsonLd } from '@/components/seo/JsonLd';
+import {
+  generateOrganizationSchema,
+  generateWebSiteSchema,
+  generateFAQPageSchema,
+  generateBreadcrumbSchema
+} from '@/lib/seo/structured-data';
+import { HOMEPAGE_FAQS } from '@/config/homepage-faqs';
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -40,5 +48,24 @@ export default async function LocalePage({ params }: PageProps) {
     return acc;
   }, {} as Record<string, { title: string; description: string }>);
 
-  return <HomePageClient locale={resolvedLocale} localizedToolContent={localizedToolContent} />;
+  // Generate server-side schemas
+  const organizationStructuredData = generateOrganizationSchema();
+  const websiteStructuredData = generateWebSiteSchema(resolvedLocale);
+  const breadcrumbStructuredData = generateBreadcrumbSchema(
+    [
+      { name: 'Home', path: '' }
+    ],
+    resolvedLocale
+  );
+  const faqStructuredData = generateFAQPageSchema(HOMEPAGE_FAQS);
+
+  return (
+    <>
+      <JsonLd data={organizationStructuredData} />
+      <JsonLd data={websiteStructuredData} />
+      <JsonLd data={breadcrumbStructuredData} />
+      <JsonLd data={faqStructuredData} />
+      <HomePageClient locale={resolvedLocale} localizedToolContent={localizedToolContent} />
+    </>
+  );
 }
