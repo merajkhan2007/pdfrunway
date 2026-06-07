@@ -737,6 +737,35 @@ export default function HomePageClient({ locale, localizedToolContent }: HomePag
 
 
         {/* ════════════════════════════════════════════════════════
+            SOCIAL PROOF (STATS) SECTION
+        ════════════════════════════════════════════════════════ */}
+        <section className="relative py-16 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-900" aria-label="Statistics">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
+              {[
+                { value: '131+', label: 'PDF Tools', icon: Settings, color: 'text-[#E31E24]', bg: 'bg-red-50 dark:bg-red-950/20' },
+                { value: '100%', label: 'Private & Secure', icon: Shield, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-950/20' },
+                { value: 'Browser Based', label: 'Free Forever', icon: Globe, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-50 dark:bg-purple-950/20' },
+              ].map(stat => {
+                const Icon = stat.icon;
+                return (
+                  <div key={stat.label} className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-gray-50/50 dark:bg-gray-900/40 border border-gray-100/70 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+                    <div className={`p-3 rounded-xl ${stat.bg} ${stat.color} shadow-sm`}>
+                      <Icon className="h-6.5 w-6.5" />
+                    </div>
+                    <div className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${stat.color}`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{stat.label}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+
+        {/* ════════════════════════════════════════════════════════
             INTERACTIVE RECOMMENDATIONS (CONVERSION ENGINE)
         ════════════════════════════════════════════════════════ */}
         <section className="py-20 bg-white dark:bg-gray-950 border-t border-b border-gray-100 dark:border-gray-900">
