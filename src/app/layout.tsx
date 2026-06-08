@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import '@/app/globals.css';
 import { withBasePath } from '@/lib/utils/path';
 
@@ -37,20 +38,25 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHF0VJXZBP"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-VHF0VJXZBP');
-            `,
-          }}
-        />
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-VHF0VJXZBP"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+        >
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VHF0VJXZBP');
+          `}
+        </Script>
         {children}
       </body>
     </html>
